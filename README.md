@@ -8,6 +8,8 @@
 ## Commands to run
 ```
 pip install -r requirements.txt
+cd backend_server
+fastapi dev main.py
 python3 main.py
 ```
 
