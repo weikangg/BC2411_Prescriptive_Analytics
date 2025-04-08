@@ -20,3 +20,6 @@ dist/
 # IDE/editor settings
 .vscode/
 .idea/
+
+# Kaggle json api key
+kaggle.json

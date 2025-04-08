@@ -1,0 +1,438 @@
+id,recipe,category,prep_time_in_minutes,cook_time_in_minutes,difficulty,serving,calories,fat,carbs,protein
+1,Chia And Blackberry Pudding,Breakfast Recipes,45.0,0.0,Easy,2.0,437.0,38.0,8.0,8.0
+2,Cinnamon Chiller,Breakfast Recipes,10.0,0.0,Easy,1.0,145.0,4.0,1.6,0.6
+3,Cheesy Low-Carb Omelet,Breakfast Recipes,5.0,5.0,Easy,5.0,451.0,36.0,3.0,33.0
+4,Angel Eggs,Breakfast Recipes,30.0,0.0,Easy,2.0,184.0,15.0,1.0,12.0
+5,Roasted Onions And Green Beans,Breakfast Recipes,10.0,15.0,Easy,6.0,214.0,19.4,3.7,8.3
+6,Denver Omelete,Breakfast Recipes,4.0,1.0,Medium,1.0,605.0,46.0,6.0,39.0
+7,Hungarian Keto Porridge,Breakfast Recipes,10.0,10.0,Easy,2.0,410.0,38.0,10.0,6.0
+8,Scrambled Pesto Eggs,Breakfast Recipes,5.0,5.0,Easy,4.0,467.0,41.0,3.0,20.0
+9,Vanilla Hemp Drink,Breakfast Recipes,10.0,0.0,Easy,1.0,250.0,20.0,10.0,7.0
+10,Pepperoni Omelet,Breakfast Recipes,5.0,20.0,Easy,4.0,141.0,11.5,0.6,8.9
+11,The Mocha Shake,Breakfast Recipes,10.0,0.0,Easy,1.0,293.0,23.0,19.0,10.0
+12,Early Morning Cheesy Egg Muffin,Breakfast Recipes,10.0,20.0,Medium,6.0,101.0,7.0,3.0,7.0
+13,An Omelet Of Swiss Chard,Breakfast Recipes,5.0,5.0,Medium,4.0,260.0,21.0,4.0,14.0
+14,Chocolate Fat Bombs,Breakfast Recipes,10.0,5.0,Medium,12.0,555.0,55.0,11.0,11.0
+15,Coconut And Hazelnut Chilled Glass,Breakfast Recipes,10.0,0.0,Easy,1.0,457.0,46.0,12.0,7.0
+16,Delicious Nut Dredged Porridge,Breakfast Recipes,10.0,15.0,Easy,4.0,260.0,22.0,12.0,6.0
+17,Crispy Tofu,Breakfast Recipes,5.0,30.0,Medium,8.0,282.0,20.0,9.0,12.0
+18,Cottage Cheese Hotcake,Breakfast Recipes,10.0,10.0,Medium,2.0,690.0,48.0,16.0,40.0
+20,Mushroom Muffin,Breakfast Recipes,10.0,15.0,Medium,12.0,75.0,5.0,2.0,4.0
+21,Cinnamon And Coconut Porridge,Breakfast Recipes,5.0,5.0,Medium,4.0,171.0,16.0,6.0,2.0
+22,Skillet Based Kale And Avocado,Breakfast Recipes,5.0,10.0,Medium,2.0,461.0,34.0,6.0,18.0
+23,Fat Burner Espresso,Breakfast Recipes,10.0,0.0,Easy,2.0,270.0,16.0,2.0,30.0
+24,Blue Cheese Omelet,Breakfast Recipes,10.0,15.0,Easy,1.0,307.0,25.0,2.5,18.0
+25,Hearty Chia Bowls,Breakfast Recipes,10.0,0.0,Medium,2.0,300.0,8.0,5.0,4.0
+26,Classical Eggs And Canadian Bacon,Breakfast Recipes,10.0,15.0,Easy,2.0,326.0,5.0,46.0,0.7
+27,Pecan And Goat Cheese,Breakfast Recipes,10.0,10.0,Medium,4.0,296.0,8.0,0.6,14.0
+28,Broccoli Egg Salad,Breakfast Recipes,4.0,0.0,Medium,4.0,250.0,11.0,5.6,6.0
+29,Creamy Cheese Pancakes,Breakfast Recipes,10.0,12.0,,4.0,82.0,7.3,0.8,3.8
+30,Excellent Zucchini Sage Cakes,Breakfast Recipes,10.0,12.0,Medium,4.0,320.0,13.0,10.0,12.0
+31,Delicious Egg Muffins,Breakfast Recipes,10.0,20.0,Easy,4.0,292.0,5.0,16.0,3.0
+32,Double Stuffed Cheese Peppers,Breakfast Recipes,10.0,25.0,Medium,4.0,140.0,7.0,8.0,0.9
+33,Creamy Cheese Muffins,Breakfast Recipes,10.0,30.0,Medium,4.0,344.0,33.0,2.8,9.1
+34,Cheese And Bacon Balls,Breakfast Recipes,10.0,5.0,Medium,4.0,206.0,16.0,0.6,13.0
+35,Baked Stuffed Up Avocados,Breakfast Recipes,10.0,20.0,Medium,4.0,342.0,30.0,8.0,1.0
+36,Colorful Vegetable Omelet,Breakfast Recipes,10.0,10.0,Medium,4.0,239.0,6.0,11.0,2.0
+37,Simple Fried Eggs,Breakfast Recipes,10.0,10.0,Medium,4.0,179.0,16.0,0.5,8.0
+38,Beef And Egg Early Morning Muffin,Breakfast Recipes,10.0,15.0,Easy,12.0,222.0,18.0,1.2,15.2
+39,Spicy Chili Deviled Eggs,Breakfast Recipes,10.0,50.0,Easy,4.0,82.0,5.0,0.4,7.0
+40,Classic Egg Porridge,Breakfast Recipes,10.0,15.0,Medium,4.0,604.0,45.0,2.0,8.0
+41,Juicy Spanish Omelet,Breakfast Recipes,10.0,10.0,Easy,4.0,160.0,15.0,4.0,7.0
+42,Delicious Breakfast Sausage Casserole,Breakfast Recipes,10.0,45.0,Easy,4.0,290.0,25.0,1.0,12.0
+43,Excellent Scrambled Mug Eggs,Breakfast Recipes,10.0,5.0,Easy,4.0,330.0,30.0,2.0,12.0
+44,Unique Salmon Omelet,Breakfast Recipes,10.0,10.0,Easy,4.0,460.0,35.0,2.0,36.0
+45,Fine Spinach And Cheese Eggs,Breakfast Recipes,10.0,30.0,Easy,4.0,200.0,25.0,2.0,16.0
+46,Juicy Scotch Egg,Breakfast Recipes,10.0,30.0,Easy,4.0,345.0,28.0,2.0,18.0
+47,Toasty Cauliflower And Avocado,Breakfast Recipes,10.0,10.0,Medium,4.0,126.0,7.0,10.0,10.0
+48,Avocado Egg Crepes,Breakfast Recipes,10.0,5.0,Easy,4.0,371.0,25.0,10.0,27.0
+49,Bacon And Shallots With Spinach,Breakfast Recipes,10.0,25.0,Medium,4.0,150.0,13.0,5.0,4.0
+50,The Cheesy Mug,Appetizer and Snacks Recipes,4.0,2.0,Easy,1.0,268.0,16.0,4.0,22.0
+51,Cashew And Almond Butter,Appetizer and Snacks Recipes,5.0,0.0,Easy,1.0,205.0,19.0,1.0,2.8
+52,Crispy Walnut Crumbles,Appetizer and Snacks Recipes,10.0,8.0,Medium,10.0,80.0,3.0,7.0,7.0
+53,Keto Kohlslaw,Appetizer and Snacks Recipes,10.0,0.0,Easy,4.0,392.0,40.4,7.2,6.2
+54,Stuffed Mushrooms,Appetizer and Snacks Recipes,10.0,15.0,Medium,4.0,124.0,22.4,5.4,1.2
+55,Flax And Almond Crunchies,Appetizer and Snacks Recipes,15.0,60.0,Easy,20.0,47.0,6.0,1.2,2.0
+56,Juicy Salmon Fat Bombs,Appetizer and Snacks Recipes,5.0,10.0,Medium,12.0,145.0,18.0,0.0,8.0
+57,Roasted Herb Crackers,Appetizer and Snacks Recipes,10.0,120.0,Easy,75.0,34.0,5.0,1.0,1.3
+58,Crunchy Garlic Bread Stick,Appetizer and Snacks Recipes,15.0,15.0,Medium,8.0,259.0,24.0,5.0,7.0
+59,Magnificent Camembert Mushrooms,Appetizer and Snacks Recipes,5.0,13.0,Medium,4.0,161.0,13.0,3.0,9.0
+60,Golden Eggplant Fries,Appetizer and Snacks Recipes,10.0,15.0,Easy,8.0,212.0,15.8,12.1,8.6
+61,Cheesy Mozzarella Sticks,Appetizer and Snacks Recipes,10.0,20.0,Medium,8.0,225.0,19.0,3.0,12.0
+62,Salt And Rosemary Cracker,Appetizer and Snacks Recipes,10.0,15.0,Easy,36.0,66.0,6.0,1.4,3.0
+63,Premium Goat Cheese Salad,Appetizer and Snacks Recipes,4.0,10.0,Medium,2.0,645.0,53.0,6.0,33.0
+64,Grilled Avocado And Melted Cheese,Appetizer and Snacks Recipes,5.0,4.0,Easy,6.0,459.0,41.0,15.0,7.0
+65,Mozzarella And Bacon Bites,Appetizer and Snacks Recipes,10.0,5.0,Easy,4.0,278.0,15.0,3.0,32.0
+66,Brazilian Butter Macadamia,Appetizer and Snacks Recipes,5.0,0.0,,1.0,225.0,23.0,1.7,2.8
+67,Tasty Roasted Broccoli,Appetizer and Snacks Recipes,5.0,20.0,Easy,4.0,62.0,4.0,4.0,4.0
+68,Spicy Pimento Cheese Dip,Appetizer and Snacks Recipes,5.0,5.0,Easy,10.0,259.0,24.0,4.0,16.0
+69,Bacon Smoky Doodles,Appetizer and Snacks Recipes,5.0,25.0,Easy,4.0,247.0,18.0,2.0,14.0
+70,Tantalizing Butter Beans,Appetizer and Snacks Recipes,5.0,12.0,Medium,4.0,93.0,8.0,4.0,2.0
+71,Walnuts And Asparagus Delight,Appetizer and Snacks Recipes,5.0,5.0,Medium,4.0,124.0,12.0,2.0,3.0
+72,Spicy Chili Crackers,Appetizer and Snacks Recipes,15.0,60.0,Medium,30.0,49.0,4.1,3.0,1.6
+73,Faux Mac And Cheese,Appetizer and Snacks Recipes,15.0,45.0,Easy,4.0,229.0,14.0,9.0,15.0
+74,Hearty Roasted Cauliflower,Appetizer and Snacks Recipes,5.0,30.0,Easy,8.0,129.0,11.0,6.0,7.0
+75,Sausage And Shrimp Skewers,Appetizer and Snacks Recipes,20.0,10.0,Medium,6.0,178.0,12.0,3.0,12.0
+76,Fancy Grilled Halloumi Bruschetta,Appetizer and Snacks Recipes,10.0,10.0,Medium,4.0,134.0,12.4,1.0,7.0
+77,Broccoli And Dill Salad,Appetizer and Snacks Recipes,10.0,5.0,Easy,4.0,406.0,42.0,5.0,5.0
+78,Cheddar Biscuits,Appetizer and Snacks Recipes,10.0,30.0,Medium,4.0,355.0,28.0,1.14,21.0
+79,The Faux Cinnamon Rice Pudding,Appetizer and Snacks Recipes,15.0,0.0,Medium,4.0,255.0,20.0,3.0,6.0
+80,Almond Flour English Cake,Appetizer and Snacks Recipes,10.0,15.0,Medium,4.0,161.0,13.0,2.0,7.0
+81,Bacon And Avocado Fat Bombs,Appetizer and Snacks Recipes,10.0,50.0,Medium,4.0,336.0,15.0,2.3,0.5
+82,Green Olives With Deviled Eggs,Appetizer and Snacks Recipes,10.0,0.0,Easy,2.0,209.0,8.0,0.2,1.4
+83,Spinach And Bacon Salad,Appetizer and Snacks Recipes,10.0,5.0,Medium,2.0,181.0,8.0,0.3,0.2
+84,Cool Bacon And Cheese Rolls,Appetizer and Snacks Recipes,10.0,50.0,Medium,4.0,165.0,12.0,0.8,0.8
+85,Roasted Brussels And Bacon,Appetizer and Snacks Recipes,10.0,40.0,Medium,4.0,130.0,9.0,5.0,7.0
+86,Parmesan Garlic Cauliflower,Appetizer and Snacks Recipes,10.0,50.0,Medium,4.0,180.0,18.0,6.0,7.0
+87,Flaxy Cheese Chips,Appetizer and Snacks Recipes,10.0,15.0,Easy,4.0,130.0,8.0,1.0,5.0
+88,Handy Baked Tortillas,Appetizer and Snacks Recipes,10.0,30.0,Easy,4.0,90.0,6.0,4.0,3.0
+89,Fine Jarlsberg Omelet,Appetizer and Snacks Recipes,10.0,5.0,Easy,4.0,525.0,37.0,15.0,40.0
+90,Asparagus And Baked Pork,Appetizer and Snacks Recipes,10.0,20.0,Easy,4.0,303.0,7.0,298.0,8.0
+91,Spicy Fired Up Jalapeno Poppers,Appetizer and Snacks Recipes,10.0,30.0,Medium,4.0,550.0,12.0,5.0,5.0
+92,Bacon And Chicken Patties,Appetizer and Snacks Recipes,10.0,15.0,Medium,4.0,420.0,22.0,4.0,37.0
+93,Juicy Grilled Ham And Cheese,Appetizer and Snacks Recipes,10.0,30.0,Medium,4.0,230.0,21.0,2.0,15.0
+94,Prosciutto Spinach Salad,Appetizer and Snacks Recipes,10.0,0.0,Medium,4.0,199.0,18.0,2.0,7.0
+95,Lasagna Spaghetti Squash,Appetizer and Snacks Recipes,10.0,80.0,Medium,4.0,420.0,31.0,5.0,25.0
+96,Blue Cheese Chicken Wedges,Appetizer and Snacks Recipes,10.0,30.0,Medium,4.0,315.0,22.0,8.0,20.0
+97,Feisty Bacon Snack,Appetizer and Snacks Recipes,10.0,60.0,Medium,4.0,388.0,38.0,3.0,29.0
+98,Bacon And Scallops Snack,Appetizer and Snacks Recipes,10.0,6.0,Medium,4.0,280.0,18.0,3.0,28.0
+99,Perfect Gluten-Free Gratin,Appetizer and Snacks Recipes,10.0,25.0,Medium,4.0,175.0,15.0,3.0,5.0
+100,Cheesed Up Bacon Butternut Squash,Appetizer and Snacks Recipes,10.0,30.0,Easy,4.0,335.0,33.0,12.0,20.0
+101,Hot Buffalo Wings,Appetizer and Snacks Recipes,10.0,6.0,Easy,8.0,529.0,4.0,1.0,31.0
+102,A Jar Full Of Pecans,Appetizer and Snacks Recipes,10.0,120.0,Medium,4.0,337.0,31.0,16.0,4.0
+103,The Exquisite Spaghetti Squash,Appetizer and Snacks Recipes,5.0,8.0,Easy,6.0,52.0,0.0,12.0,1.0
+104,Worthy Bacon-Wrapped Drumsticks,Appetizer and Snacks Recipes,10.0,480.0,Medium,6.0,202.0,8.0,3.0,30.0
+105,Coconut Chocolate Cookie,Appetizer and Snacks Recipes,10.0,0.0,Easy,4.0,40.0,4.0,2.0,1.0
+106,Keto Shortbread,Appetizer and Snacks Recipes,10.0,15.0,Easy,4.0,124.0,12.0,2.0,3.0
+107,1 Minute Keto Muffin,Appetizer and Snacks Recipes,10.0,1.0,Easy,4.0,102.0,5.0,3.0,7.0
+108,Chilled No-Bake Lemon Cheesecake,Appetizer and Snacks Recipes,10.0,0.0,Medium,4.0,220.0,17.0,2.0,6.0
+109,Delicious Vegetable Quiche,Appetizer and Snacks Recipes,10.0,25.0,Medium,4.0,395.0,32.0,4.0,21.0
+110,Fancy Rutabaga Cakes,Appetizer and Snacks Recipes,10.0,30.0,Medium,4.0,46.0,3.0,1.0,0.4
+111,Eggplant Fries,Appetizer and Snacks Recipes,10.0,15.0,Medium,4.0,212.0,15.0,4.0,7.0
+112,Stuffed Parmesan Cheese Avocado,Appetizer and Snacks Recipes,10.0,15.0,Medium,4.0,41.0,41.0,7.0,7.0
+114,Coffee Popsicles,Appetizer and Snacks Recipes,10.0,0.0,Easy,4.0,105.0,10.0,2.0,2.0
+115,Icy Berry Popsicles,Appetizer and Snacks Recipes,10.0,0.0,Easy,4.0,165.0,17.0,3.0,1.0
+116,Scrambled Pesto Eggs,Appetizer and Snacks Recipes,5.0,5.0,Easy,4.0,467.0,41.0,3.0,20.0
+117,Black Berry Chicken Wings,Appetizer and Snacks Recipes,35.0,50.0,Medium,4.0,502.0,39.0,1.8,34.0
+118,Awesome Asian Beef Steak,Beef Recipes,10.0,5.0,Difficult,3.0,350.0,23.0,4.0,28.0
+119,Healthy Avocado Beef Patties,Beef Recipes,15.0,10.0,Medium,2.0,568.0,43.0,9.0,38.0
+120,TheFresh Thai Beef,Beef Recipes,10.0,10.0,Medium,4.0,224.0,15.0,3.0,19.0
+122,Beef Zucchini Chips,Beef Recipes,10.0,35.0,Medium,4.0,222.0,10.0,8.0,21.0
+123,Juicy Ground Beef Casserole,Beef Recipes,10.0,35.0,Medium,6.0,554.0,51.0,5.0,45.0
+124,Majestic Beef And Tomato Squash,Beef Recipes,10.0,60.0,Medium,4.0,260.0,7.0,4.0,10.0
+125,Tamari Steak Salad,Beef Recipes,15.0,10.0,Medium,4.0,500.0,37.0,4.0,33.0
+126,Ravaging Beef Pot Roast,Beef Recipes,10.0,75.0,Easy,4.0,700.0,56.0,10.0,70.0
+127,Juicy Glazed Beef Meatloaf,Beef Recipes,10.0,90.0,Medium,6.0,264.0,14.0,4.0,24.0
+128,Zucchini Beef Sauté With Coriander Greens,Beef Recipes,10.0,10.0,Easy,4.0,500.0,40.0,5.0,31.0
+129,Pure Broccoli Rib Eye,Beef Recipes,5.0,15.0,Easy,4.0,875.0,75.0,8.0,40.0
+130,Mushroom And Olive “Mediterranean” Steak,Beef Recipes,10.0,14.0,Easy,4.0,386.0,30.0,11.0,21.0
+131,Satisfying Low-Carb Beef Liver Salad,Beef Recipes,10.0,0.0,Easy,3.0,300.0,26.0,5.0,10.0
+132,Perfect Aromatic Beef Roast,Beef Recipes,10.0,50.0,Easy,4.0,646.0,27.0,0.1,96.0
+133,Beef Packed Zucchini Boats,Beef Recipes,10.0,30.0,Easy,4.0,280.0,13.0,4.2,30.0
+134,Spicy Chipotle Steak,Beef Recipes,10.0,20.0,Easy,4.0,470.0,24.0,4.0,50.0
+135,Beef Cheeseburger Wraps,Beef Recipes,10.0,50.0,Easy,4.0,456.0,21.0,5.0,37.0
+136,Cheddar Jalapeno Meatloaf,Beef Recipes,10.0,40.0,Easy,4.0,407.0,28.0,2.3,30.0
+137,Perfect Philly Cheesesteak Stuffed Peppers,Beef Recipes,10.0,20.0,Easy,4.0,458.0,36.0,8.0,27.0
+138,Grilled Beef Short Loin,Beef Recipes,10.0,20.0,Easy,4.0,313.0,11.0,0.1,52.0
+139,Hearty Beef Bourguignon,Beef Recipes,10.0,70.0,Easy,4.0,217.0,4.0,4.0,0.4
+140,Zucchini And Cheddar Beef Mugs,Beef Recipes,10.0,15.0,Easy,4.0,188.0,9.0,4.0,18.0
+141,Beef Stuffed Peppers,Beef Recipes,10.0,50.0,Easy,4.0,395.0,24.0,0.8,40.0
+142,Fine Filet Mignon In Dijon Sauce,Beef Recipes,10.0,15.0,Medium,4.0,301.0,2.0,2.0,34.0
+143,Shitake Butter Beef Dish,Beef Recipes,10.0,10.0,Easy,4.0,307.0,31.0,3.0,33.0
+144,Crazy Beef Meatballs,Beef Recipes,10.0,20.0,Easy,4.0,380.0,22.0,1.0,18.0
+145,Delicious Beef Casserole,Beef Recipes,10.0,40.0,Medium,4.0,275.0,20.0,6.0,20.0
+146,Ground Beef Hamburger Patties,Beef Recipes,10.0,10.0,Easy,4.0,488.0,27.0,2.0,56.0
+147,Creative Lamb Chops,Pork And Other Red Meat,35.0,5.0,Medium,3.0,566.0,40.0,2.0,47.0
+148,Healthy Slow-Cooker Lamb Leg,Pork And Other Red Meat,10.0,480.0,Medium,6.0,400.0,34.0,3.0,26.0
+149,Spicy Paprika Lamb Chops,Pork And Other Red Meat,10.0,10.0,Meduim,4.0,200.0,5.0,4.0,8.0
+150,Simple Lamb Riblets And Mini Pesto,Pork And Other Red Meat,60.0,120.0,Difficult,4.0,200.0,4.0,4.0,7.0
+151,Terrific Jalapeno Bacon Bombs,Pork And Other Red Meat,15.0,10.0,Easy,2.0,209.0,9.0,15.0,9.0
+152,Elegant Mushroom Pork Chops,Pork And Other Red Meat,10.0,40.0,Meduim,3.0,600.0,10.0,8.0,30.0
+153,Lemon And Garlic Pork Platter,Pork And Other Red Meat,10.0,30.0,Meduim,4.0,456.0,25.0,6.0,40.0
+154,The Herbal Buttery Pork Chops,Pork And Other Red Meat,5.0,25.0,Medium,3.0,333.0,23.0,1.0,31.0
+155,Italian Pork Chops,Pork And Other Red Meat,10.0,10.0,Medium,4.0,210.0,10.0,6.0,19.0
+156,Gentle Cheesy Pork Chops,Pork And Other Red Meat,10.0,20.0,Medium,4.0,350.0,35.0,4.0,31.0
+157,Original Caramelized Pork Chops,Pork And Other Red Meat,5.0,30.0,Medium,4.0,271.0,19.0,4.0,27.0
+158,Simple Pork Stuffed Bell Peppers,Pork And Other Red Meat,10.0,26.0,Easy,4.0,140.0,3.0,3.0,10.0
+159,Parmesan Pork Steak,Pork And Other Red Meat,10.0,15.0,Medium,4.0,315.0,27.0,1.0,16.0
+160,Serve and enjoy!,Pork And Other Red Meat,10.0,480.0,Difficult,4.0,430.0,23.0,3.0,45.0
+161,Satisfyingly Spicy Pork Chops,Pork And Other Red Meat,250.0,15.0,Medium,4.0,200.0,8.0,3.0,26.0
+162,Oven Baked Slow Baked Pork Shoulder,Pork And Other Red Meat,10.0,620.0,Medium,4.0,450.0,35.0,1.0,31.0
+163,Onion And Bacon Pork Chops,Pork And Other Red Meat,10.0,45.0,Medium,4.0,325.0,18.0,6.0,36.0
+164,The Classical Medi Pork,Pork And Other Red Meat,10.0,30.0,Medium,4.0,165.0,2.0,2.0,26.0
+165,Hearty Parmesan Baked Chicken,Poultry Recipes,5.0,20.0,Medium,2.0,850.0,67.0,2.0,60.0
+166,The Almond Breaded Chicken Goodness,Poultry Recipes,15.0,15.0,Medium,3.0,325.0,24.0,3.0,16.0
+167,Brown Butter Duck Breas,Poultry Recipes,5.0,25.0,Medium,3.0,393.0,33.0,2.0,22.0
+168,Healthy Chicken Cream Salad,Poultry Recipes,5.0,50.0,Easy,3.0,415.0,24.0,4.0,40.0
+169,Black Berry Chicken Wings,Poultry Recipes,35.0,50.0,Medium,4.0,502.0,39.0,1.8,34.0
+170,Hearty Chicken Keto Nuggets,Poultry Recipes,5.0,10.0,Easy,2.0,165.0,9.0,3.0,25.0
+171,Zucchini Zoodles With Chicken and Basil,Poultry Recipes,10.0,10.0,Medium,3.0,540.0,27.0,13.0,59.0
+172,Salsa Chicken,Poultry Recipes,4.0,14.0,Easy,4.0,359.0,14.0,14.0,43.0
+173,Bacon And Chicken Garlic Wrap,Poultry Recipes,15.0,10.0,Easy,4.0,260.0,19.0,5.0,22.0
+174,Cheesy Grilled Chicken Platter,Poultry Recipes,5.0,10.0,Medium,6.0,195.0,7.0,3.0,30.0
+175,Chicken Parmesan Fingers,Poultry Recipes,15.0,30.0,Medium,6.0,370.0,20.0,6.0,40.0
+176,Clean Parsley And Chicken Breast,Poultry Recipes,10.0,40.0,Medium,4.0,150.0,4.0,4.0,25.0
+177,Chipotle Lettuce Chicken,Poultry Recipes,10.0,25.0,Medium,6.0,332.0,15.0,13.0,34.0
+178,Amazing Buffalo Lettuce Wraps,Poultry Recipes,35.0,10.0,Medium,2.0,106.0,6.0,2.0,5.0
+179,Balsamic Chicken,Poultry Recipes,10.0,25.0,Medium,6.0,196.0,7.0,7.0,23.0
+180,Low- Carb Butternut Chicken,Poultry Recipes,15.0,30.0,Medium,4.0,323.0,19.0,8.0,12.0
+181,The Original Greek Chicken Breast,Poultry Recipes,10.0,25.0,Medium,4.0,644.0,57.0,2.0,27.0
+182,Chicken Ham And Turnip Pasta,Poultry Recipes,10.0,10.0,Easy,4.0,191.0,14.0,10.0,9.0
+183,Turkey Bacon Garlic Knots,Poultry Recipes,10.0,15.0,Medium,4.0,27.0,2.0,0.5,0.5
+184,Chinese Duck Breast,Poultry Recipes,10.0,15.0,Medium,4.0,271.0,17.0,0.5,1.0
+185,The Perfect Winter Turkey Goulash,Poultry Recipes,10.0,50.0,Difficult,4.0,220.0,8.0,2.0,35.0
+186,Classic Teriyaki Chicken,Poultry Recipes,10.0,50.0,Medium,4.0,150.0,9.0,0.5,17.0
+187,Juicy Italian Chicken Basil Pizza,Poultry Recipes,10.0,20.0,Easy,4.0,316.0,17.0,0.4,5.0
+188,Cocktail-Styled Meatball,Poultry Recipes,10.0,25.0,Easy,4.0,216.0,11.0,4.0,24.0
+189,Zucchini And Duck Meal,Poultry Recipes,10.0,35.0,Medium,4.0,450.0,23.0,8.0,50.0
+190,Feisty Tikka Chicken And Butter,Poultry Recipes,10.0,15.0,Difficult,4.0,880.0,87.0,13.0,24.0
+191,Creamy Chicken Cajun,Poultry Recipes,10.0,15.0,Easy,4.0,357.0,20.0,2.0,42.0
+192,Crispy Chicken Tenders,Poultry Recipes,10.0,20.0,Easy,4.0,580.0,32.0,4.0,63.0
+194,Beautiful Tarragon Chicken Roast,Poultry Recipes,10.0,45.0,Medium,4.0,461.0,30.0,4.0,38.0
+195,Cauliflower Rice And Chicken Curry,Poultry Recipes,10.0,15.0,Easy,4.0,249.0,18.0,6.0,15.0
+196,Juicy Chicken Blanket,Poultry Recipes,10.0,50.0,Medium,4.0,380.0,29.0,3.0,1.0
+197,The Duck Eye Ribeye,Poultry Recipes,10.0,20.0,Medium,4.0,740.0,65.0,1.0,37.0
+198,Everyone’s Favorite Turkey Avocado Rolls,Poultry Recipes,10.0,5.0,Easy,4.0,150.0,9.0,5.0,15.0
+199,Sweet And Savory Grilled Chicken,Poultry Recipes,10.0,15.0,Medium,4.0,176.0,4.0,2.0,30.0
+200,The Perfect Mediterranean Turkey Cutlets,Poultry Recipes,10.0,15.0,Medium,4.0,283.0,13.0,5.0,34.0
+201,Burnt Fried Chicken,Poultry Recipes,10.0,20.0,Easy,4.0,464.0,14.0,3.0,77.0
+202,Crunched Up Chicken Taco Wings,Poultry Recipes,10.0,15.0,Easy,4.0,364.0,11.0,1.0,59.0
+204,Spicy And Sour Chicken Breast,Poultry Recipes,10.0,10.0,Medium,4.0,400.0,20.0,2.0,53.0
+205,Spicy Grilled Chicken,Poultry Recipes,10.0,20.0,Medium,4.0,615.0,53.0,1.2,32.0
+206,Michigan Turkey Meal,Poultry Recipes,10.0,240.0,Medium,4.0,500.0,22.0,0.6,73.0
+207,Bacon Wrapped Chicken Breast With Spinach,Poultry Recipes,10.0,10.0,Difficult,4.0,626.0,41.0,3.7,61.0
+208,Asparagus And Lemon Salmon Dish,Fish and Seafood Recipes,5.0,15.0,Easy,3.0,434.0,26.0,6.0,42.0
+209,Walnut Encrusted Salmon,Fish and Seafood Recipes,10.0,14.0,Easy,3.0,373.0,43.0,4.0,20.0
+210,Especial Glazed Salmon,Fish and Seafood Recipes,45.0,10.0,Easy,4.0,372.0,24.0,3.0,35.0
+211,Lovely Molten Tuna Bites,Fish and Seafood Recipes,10.0,10.0,Easy,4.0,134.0,11.0,2.0,7.0
+212,Hearty Lemon And Butter Cod,Fish and Seafood Recipes,5.0,20.0,Easy,3.0,284.0,18.0,1.0,32.0
+213,A Broccoli And Tilapia Dish To Die For!,Fish and Seafood Recipes,4.0,14.0,Easy,1.0,362.0,25.0,2.0,29.0
+214,Healthy Tuna Croquettes,Fish and Seafood Recipes,4.0,9.0,Easy,4.0,105.0,5.0,2.0,14.0
+215,Generous Stuffed Salmon Avocado,Fish and Seafood Recipes,10.0,30.0,Easy,2.0,525.0,48.0,4.0,19.0
+216,Baked Halibut Delight,Fish and Seafood Recipes,15.0,30.0,Easy,8.0,429.0,26.0,10.0,36.0
+217,Hungry Tuna Bites,Fish and Seafood Recipes,10.0,10.0,Easy,2.0,134.0,11.0,2.0,7.0
+218,Tilapia Broccoli Platter,Fish and Seafood Recipes,4.0,14.0,Easy,2.0,362.0,25.0,2.0,29.0
+220,Simple Sautéed Garlic And Parsley Scallops,Fish and Seafood Recipes,5.0,25.0,Easy,4.0,417.0,31.0,5.0,29.0
+221,Mesmerizing Coconut Haddock,Fish and Seafood Recipes,10.0,12.0,Easy,3.0,299.0,24.0,1.0,20.0
+222,“Salmon” Platter,Fish and Seafood Recipes,5.0,6.0,Easy,3.0,464.0,34.0,3.0,34.0
+223,Feisty Bacon Scallops,Fish and Seafood Recipes,10.0,23.0,Easy,4.0,550.0,27.0,6.0,66.0
+224,Grilled Lime Shrimp,Fish and Seafood Recipes,25.0,5.0,Easy,8.0,188.0,3.0,1.2,13.0
+225,Mouthwatering Calamari,Fish and Seafood Recipes,10.0,8.0,Easy,4.0,159.0,13.0,12.0,3.0
+227,Crisped Up Coconut Shrimp,Fish and Seafood Recipes,10.0,20.0,Easy,4.0,354.0,24.0,20.0,13.0
+229,Asian Glazed Salmon and Cauliflower,Fish and Seafood Recipes,10.0,5.0,Easy,4.0,210.0,13.0,4.0,15.0
+230,Shrimp And Bacon Zoodles,Fish and Seafood Recipes,10.0,12.0,Easy,4.0,670.0,51.0,6.0,48.0
+231,Baked Lobster Tails And Garlic Butter,Fish and Seafood Recipes,10.0,15.0,Easy,4.0,222.0,14.0,2.0,21.0
+235,Baked Cod And Tomato Capers Delight,Fish and Seafood Recipes,10.0,25.0,Easy,4.0,150.0,3.0,0.7,3.0
+240,Favorite Lemon Dill Trout,Fish and Seafood Recipes,10.0,0.0,Easy,4.0,460.0,22.0,1.0,57.0
+242,Asparagus And Tilapia Dish,Fish and Seafood Recipes,20.0,120.0,Easy,4.0,229.0,10.0,1.0,28.0
+243,Mesmerizing Shrimp Scampi,Fish and Seafood Recipes,20.0,150.0,Easy,3.0,293.0,24.0,4.0,16.0
+244,The All Time Favorite Tomato And Basil Soup,Soups and Stews Recipes,10.0,15.0,Easy,4.0,239.0,22.0,7.0,3.0
+245,Healthy Lamb Stew,Soups and Stews Recipes,10.0,180.0,Medium,4.0,700.0,43.0,10.0,67.0
+247,Tender Slow Cooked Ham Stew,Soups and Stews Recipes,10.0,240.0,Medium,4.0,320.0,20.0,6.0,23.0
+248,Loving Cauliflower Soup,Soups and Stews Recipes,10.0,10.0,Easy,6.0,143.0,16.0,6.0,3.4
+249,Pork Sausage And Pepper Stew,Soups and Stews Recipes,10.0,45.0,Medium,2.0,525.0,4.0,2.0,27.0
+251,Cheese Dredged Shrimp Soup,Soups and Stews Recipes,10.0,30.0,Medium,4.0,451.0,33.0,3.0,29.0
+252,Elegant Pumpkin Chili Dish,Soups and Stews Recipes,10.0,15.0,Medium,4.0,312.0,16.0,14.0,27.0
+253,Clean Chicken And Mushroom Stew,Soups and Stews Recipes,10.0,35.0,m,4.0,247.0,12.0,10.0,23.0
+254,Hearty Keto Chicken And Egg Soup,Soups and Stews Recipes,5.0,10.0,Easy,2.0,280.0,25.0,3.0,14.0
+255,Ingenious Eggplant Soup,Soups and Stews Recipes,20.0,15.0,Easy,8.0,99.0,7.0,7.0,3.4
+256,Amazing Roasted Carrot Soup,Soups and Stews Recipes,10.0,50.0,Easy,4.0,222.0,18.0,7.0,5.0
+257,The Brussels’s Fever,Soups and Stews Recipes,10.0,20.0,Easy,4.0,200.0,11.0,6.0,11.0
+258,Curious Roasted Garlic Soup,Soups and Stews Recipes,10.0,60.0,Easy,10.0,142.0,8.0,3.4,4.0
+259,Beef And Onion Stew,Soups and Stews Recipes,10.0,120.0,Medium,4.0,136.0,3.0,0.9,24.0
+261,Dreamy Zucchini Bowl,Soups and Stews Recipes,10.0,20.0,Easy,4.0,160.0,2.0,4.0,7.0
+262,Wild Mushroom Soup,Soups and Stews Recipes,10.0,30.0,Easy,4.0,281.0,24.0,10.0,7.0
+263,Pumpkin And Coconut Cream Soup,Soups and Stews Recipes,10.0,50.0,Easy,4.0,234.0,21.0,10.0,2.3
+266,Honorable Mahi Mahi Stew,Soups and Stews Recipes,10.0,0.0,Medium,4.0,253.0,10.0,2.0,34.0
+267,Hearty Crab Soup,Soups and Stews Recipes,20.0,420.0,Medium,4.0,201.0,11.0,12.0,13.0
+268,Mexican Chicken Soup,Soups and Stews Recipes,10.0,5.0,Easy,4.0,400.0,23.0,7.0,38.0
+269,Delicious Turkey Stew,Soups and Stews Recipes,10.0,25.0,Easy,12.0,143.0,6.0,4.0,16.0
+270,"Turkey, Kale And Sausage Delight",Soups and Stews Recipes,10.0,40.0,Medium,4.0,175.0,14.0,3.0,9.0
+271,Awesome Egg Drop Soup,Soups and Stews Recipes,10.0,10.0,Easy,4.0,118.0,4.0,8.0,14.0
+272,Cheesy Broccoli Soup,Soups and Stews Recipes,10.0,30.0,Easy,4.0,112.0,4.0,11.0,9.0
+273,Chicken Liver Stew,Soups and Stews Recipes,10.0,20.0,Medium,4.0,139.0,9.0,2.0,15.0
+274,Chicken And Mushroom Stew,Soups and Stews Recipes,10.0,30.0,Easy,4.0,247.0,13.0,10.0,24.0
+275,Garlic Chicken Soup,Soups and Stews Recipes,10.0,0.0,Easy,4.0,307.0,25.0,2.0,16.0
+276,Spicy Fish Stew,Soups and Stews Recipes,10.0,20.0,Easy,4.0,270.0,20.0,7.0,35.0
+277,Chilled Minty Avocado Soup,Soups and Stews Recipes,10.0,0.0,Easy,4.0,280.0,26.0,12.0,4.0
+278,Original Guacamole Soup,Soups and Stews Recipes,10.0,0.0,Easy,4.0,158.0,14.0,6.0,7.0
+279,Awesome Zucchini Soup,Soups and Stews Recipes,10.0,480.0,Easy,4.0,60.0,1.0,10.0,3.5
+280,Spring Soup With Poached Egg,Soups and Stews Recipes,10.0,15.0,Easy,4.0,150.0,5.0,12.0,16.0
+281,Spanish Soup,Soups and Stews Recipes,10.0,5.0,Easy,4.0,133.0,11.0,9.0,2.0
+282,Butternut Garlic Soup,Soups and Stews Recipes,10.0,5.0,Easy,4.0,184.0,13.0,21.0,3.0
+283,The Heartthrob Lemon Mousse,Desserts Recipes,10.0,10.0,Easy,4.0,395.0,31.0,3.0,5.0
+284,Dreamy Hot Fudge,Desserts Recipes,5.0,10.0,Easy,5.0,273.0,24.0,3.0,2.0
+285,Deliciously Simple Brownie Muffin,Desserts Recipes,10.0,35.0,Medium,5.0,183.0,13.0,6.0,7.0
+286,The Avocado Day Stopper,Desserts Recipes,10.0,0.0,Easy,2.0,409.0,33.0,8.0,12.0
+287,Jalapeno Crisp,Desserts Recipes,10.0,75.0,Medium,20.0,156.0,13.0,2.0,5.0
+288,Easy Jalapeno Bread,Desserts Recipes,10.0,50.0,Easy,4.0,191.0,14.0,10.0,9.0
+289,Spicy Popper Mug Cake,Desserts Recipes,5.0,5.0,Easy,2.0,429.0,38.0,6.0,16.0
+291,The Most Elegant Parsley Soufflé Ever,Desserts Recipes,5.0,6.0,Easy,5.0,108.0,9.0,9.0,6.0
+292,Fluffy Chocolate Mousse,Desserts Recipes,5.0,0.0,Easy,4.0,222.0,22.0,4.0,1.0
+293,Chocolaty Bacon,Desserts Recipes,15.0,20.0,Easy,6.0,258.0,26.0,0.5,7.0
+294,Almond Butter Cup Cookies,Desserts Recipes,10.0,90.0,Medium,4.0,173.0,11.0,5.0,4.0
+295,Lovely Pumpkin Buns,Desserts Recipes,10.0,50.0,Easy,10.0,189.0,13.0,6.0,10.0
+296,Gingerbread Keto Muffins,Desserts Recipes,10.0,0.0,Easy,6.0,283.0,23.0,13.0,11.0
+297,Sensational Lemonade Fat Bomb,Desserts Recipes,120.0,0.0,Easy,2.0,404.0,43.0,4.0,4.0
+298,The Easy “No Bake” Fudge,Desserts Recipes,15.0,5.0,Easy,25.0,120.0,10.0,5.0,1.2
+299,Elegant Poppy seed Muffins,Desserts Recipes,10.0,0.0,Medium,5.0,295.0,32.0,4.0,1.0
+300,Swirly Cinnamon Muffins,Desserts Recipes,10.0,0.0,Easy,6.0,424.0,27.0,10.0,36.0
+301,Mesmerizing Garlic Bagels,Desserts Recipes,10.0,15.0,Easy,6.0,193.0,15.0,7.0,8.0
+302,Ravaging Blueberry Muffin,Desserts Recipes,10.0,30.0,Medium,4.0,167.0,15.0,2.1,5.2
+303,No Bake Cheesecake,Desserts Recipes,120.0,0.0,Easy,10.0,182.0,16.0,4.0,3.0
+304,Stylish Chocolate Parfait,Desserts Recipes,120.0,0.0,Easy,4.0,130.0,5.0,7.0,16.0
+305,Supreme Matcha Bomb,Desserts Recipes,100.0,0.0,Easy,10.0,200.0,20.0,3.0,5.0
+306,Hearty Almond Bread,Desserts Recipes,15.0,60.0,Medium,8.0,277.0,21.0,7.0,10.0
+307,Mesmerizing Avocado And Chocolate Pudding,Desserts Recipes,30.0,0.0,Easy,2.0,281.0,27.0,12.0,8.0
+308,Great Fudge Popsicles,Desserts Recipes,125.0,0.0,Easy,4.0,193.0,20.0,3.0,2.0
+309,Egg And Coconut Bread,Desserts Recipes,15.0,40.0,Easy,4.0,297.0,14.0,16.0,15.0
+310,The Beasty Green Glass,Desserts Recipes,10.0,0.0,Easy,1.0,279.0,18.0,9.0,18.0
+312,Clean Sugar-Free Lemon Curd,Desserts Recipes,10.0,10.0,Easy,2.0,258.0,25.0,2.0,7.0
+313,Fantastic Hollandaise Sauce,Desserts Recipes,10.0,0.0,Easy,4.0,95.0,50.0,1.0,3.0
+315,Raspberry Pudding Meal,Desserts Recipes,10.0,0.0,Easy,4.0,191.0,14.0,10.0,9.0
+316,Dreamy Vanilla Dessert,Desserts Recipes,10.0,0.0,Easy,2.0,205.0,18.0,7.0,7.0
+317,Coconut Pillow,Desserts Recipes,10.0,0.0,Easy,4.0,50.0,5.0,2.0,1.0
+318,The Brewed Coffee Surprise,Desserts Recipes,10.0,0.0,Easy,4.0,55.0,45.0,3.0,15.0
+319,Crusty Almond Roast,Desserts Recipes,10.0,30.0,Easy,4.0,190.0,18.0,5.0,8.0
+320,Cute Macaroon Bites,Desserts Recipes,10.0,0.0,Easy,4.0,125.0,12.0,5.0,2.0
+321,Chocolate And Coconut Pudding,Desserts Recipes,10.0,0.0,Easy,4.0,225.0,23.0,5.0,4.0
+322,Essential Chocolate Pudding,Desserts Recipes,10.0,0.0,Easy,4.0,430.0,42.0,5.0,4.0
+323,Simple Cinnamon Cocoa Almonds,Desserts Recipes,5.0,120.0,Easy,8.0,275.0,23.0,4.0,27.0
+324,Delightful Coconut Custard,Desserts Recipes,12.0,300.0,Easy,8.0,375.0,35.0,4.0,8.0
+325,Lovely Lemonade Fat Bomb,Desserts Recipes,10.0,0.0,Easy,2.0,404.0,43.0,5.0,4.0
+326,Chocolate Fat Bombs,Desserts Recipes,10.0,0.0,Easy,4.0,317.0,21.0,4.0,11.0
+327,Vegan Spiced Fat Bomb,Desserts Recipes,10.0,0.0,Easy,4.0,103.0,10.0,4.0,1.0
+328,Keto Raspberry Chocolate Cups,Desserts Recipes,10.0,0.0,Easy,4.0,158.0,15.0,1.0,3.0
+329,Crispy Cold Coconut Bombs,Desserts Recipes,10.0,0.0,Easy,4.0,123.0,13.0,2.0,1.0
+333,Dark Walnut Fudge,Desserts Recipes,10.0,0.0,Easy,4.0,134.0,14.0,2.0,2.0
+334,Hearty Keto Caramels,Desserts Recipes,15.0,5.0,Easy,4.0,242.0,44.0,1.0,1.0
+335,Easy Vanilla Custard,Desserts Recipes,10.0,5.0,Easy,4.0,204.0,18.0,8.0,5.0
+337,Low-Carb Keto Angel Cake,Desserts Recipes,10.0,45.0,Easy,4.0,159.0,3.0,5.0,0.9
+338,Crust Free Mini Cheesecake,Desserts Recipes,10.0,30.0,Medium,4.0,169.0,15.0,7.0,2.0
+339,Jalapeno And Bacon Fat Bomb,Desserts Recipes,10.0,10.0,Easy,4.0,209.0,10.0,7.0,10.0
+343,Chocolaty Bacon,Desserts Recipes,15.0,20.0,Easy,6.0,258.0,26.0,0.5,7.0
+346,Creamy Leeks Platte,Vegan and Vegetarian Recipes,10.0,25.0,Easy,6.0,204.0,15.0,9.0,7.0
+347,Cheesy Broccoli and Cauliflower,Vegan and Vegetarian Recipes,10.0,10.0,Easy,4.0,244.0,20.5,3.4,12.2
+348,Dashing Bok Choy Samba,Vegan and Vegetarian Recipes,5.0,15.0,Easy,3.0,112.0,4.9,1.9,3.0
+349,Tender Coconut And Cauliflower Rice With Chili,Vegan and Vegetarian Recipes,20.0,20.0,Easy,4.0,95.0,7.0,4.0,1.0
+350,Cool Asparagus Tart,Vegan and Vegetarian Recipes,10.0,20.0,Easy,4.0,160.0,10.0,5.0,12.0
+351,Succulent Cheesy Cauliflowers,Vegan and Vegetarian Recipes,10.0,25.0,Easy,3.0,228.0,20.0,6.0,3.0
+352,Creamy Cauli Mushroom Risotto,Vegan and Vegetarian Recipes,10.0,20.0,Medium,4.0,186.0,16.5,6.7,2.8
+353,Hearty Green Bean Roast,Vegan and Vegetarian Recipes,10.0,20.0,Easy,4.0,216.0,21.0,7.0,9.0
+354,Almond And Blistered Beans,Vegan and Vegetarian Recipes,10.0,20.0,Easy,4.0,347.0,16.0,6.0,45.0
+355,Chipotle Kale Chips,Vegan and Vegetarian Recipes,4.0,29.0,Easy,4.0,37.0,3.0,2.0,1.0
+358,Light Egg Salad,Vegan and Vegetarian Recipes,5.0,15.0,Easy,4.0,300.0,24.0,3.0,18.0
+359,Buttery Green Cabbage,Vegan and Vegetarian Recipes,10.0,15.0,Easy,4.0,199.0,17.0,10.0,3.0
+361,Amazing Green Creamy Cabbage,Vegan and Vegetarian Recipes,10.0,10.0,Easy,4.0,432.0,42.0,8.0,4.0
+362,Portobello Mushroom Risotto,Vegan and Vegetarian Recipes,5.0,15.0,Easy,4.0,438.0,17.0,15.0,12.0
+363,Gripping Eggplant Parmesan,Vegan and Vegetarian Recipes,15.0,6.0,Easy,2.0,271.0,22.0,10.0,12.0
+364,The Rutabaga Wedge Dish,Vegan and Vegetarian Recipes,15.0,45.0,Easy,4.0,235.0,15.0,10.0,2.5
+365,Creative Lemon And Broccoli Dish,Vegan and Vegetarian Recipes,10.0,15.0,Easy,6.0,49.0,1.9,7.0,3.0
+366,Spinach And Tomato Zoodles,Vegan and Vegetarian Recipes,10.0,10.0,Easy,4.0,200.0,18.0,4.0,6.0
+367,Generous Fiery Tomato Salad,Vegan and Vegetarian Recipes,10.0,25.0,Easy,4.0,115.0,10.4,5.4,12.0
+368,Easy Portobello Mushrooms,Vegan and Vegetarian Recipes,10.0,10.0,Easy,4.0,154.0,10.0,2.0,7.0
+369,Simple Avocado Caprese Salad,Vegan and Vegetarian Recipes,15.0,29.0,Easy,6.0,358.0,30.0,9.0,14.0
+371,Grilled Veggie Salad With Feta,Vegan and Vegetarian Recipes,10.0,10.0,Easy,4.0,191.0,14.0,10.0,9.0
+372,Hearty Vegan Zoodles,Vegan and Vegetarian Recipes,10.0,10.0,Easy,2.0,188.0,2.0,23.0,19.0
+378,Stir Fried Zucchini And Green Beans,Vegan and Vegetarian Recipes,10.0,10.0,Easy,4.0,137.0,13.0,3.0,1.2
+381,Baked Brussels Sprouts,Vegan and Vegetarian Recipes,10.0,20.0,Easy,4.0,100.0,3.0,2.0,6.0
+384,Crazy Caramelized Onion,Vegan and Vegetarian Recipes,10.0,600.0,Easy,4.0,126.0,15.0,15.0,2.0
+385,Broccoli Crunchies,Vegan and Vegetarian Recipes,10.0,180.0,Easy,4.0,162.0,11.0,11.0,5.0
+386,The Extremely Slow Cooked Brussels,Vegan and Vegetarian Recipes,15.0,240.0,Easy,4.0,83.0,4.0,11.0,4.0
+387,A Green Bean Mixture,Vegan and Vegetarian Recipes,10.0,120.0,Medium,2.0,236.0,6.0,10.0,6.0
+388,Creamy Leeks Platter,Vegan and Vegetarian Recipes,10.0,25.0,Easy,6.0,204.0,15.0,9.0,7.0
+389,Succulent Cheesy Cauliflowers,Vegan and Vegetarian Recipes,10.0,25.0,Easy,3.0,228.0,20.0,6.0,3.0
+390,Creamy Cauli Mushroom Risotto,Vegan and Vegetarian Recipes,10.0,20.0,Easy,4.0,186.0,16.5,6.7,2.8
+396,Good Looking Butter Mayo,Keto Kitchen Staples And Dips Recipes,15.0,2.0,Easy,4.0,285.0,98.0,0.3,1.0
+398,Amazing Cowboy Sauce,Keto Kitchen Staples And Dips Recipes,5.0,5.0,Easy,4.0,367.0,41.0,1.0,1.0
+399,Strawberry And Coconut Smoothie,Drinks And Smoothies,10.0,0.0,Easy,1.0,128.0,18.0,10.0,3.0
+400,Lovely Chai Latte,Drinks And Smoothies,10.0,0.0,Easy,1.0,135.0,1.4,1.0,1.0
+401,Blueberry And Lettuce Smoothie,Drinks And Smoothies,10.0,0.0,Easy,1.0,49.0,2.8,4.2,1.0
+402,Aromatic Tea,Drinks And Smoothies,10.0,0.0,Easy,1.0,151.0,0.0,0.0,1.0
+403,Beautiful Coconut Tea,Drinks And Smoothies,10.0,0.0,Easy,1.0,191.0,11.0,0.0,2.0
+404,Fresh Hearty Strawberry Juice,Drinks And Smoothies,10.0,0.0,Easy,1.0,31.0,0.3,5.0,1.9
+405,The Berry-Licious And Hazelnut Smoothie,Drinks And Smoothies,10.0,0.0,Easy,1.0,365.0,34.0,167.0,7.0
+406,Pumpkin Pie Buttered Coffee,Drinks And Smoothies,10.0,0.0,Easy,1.0,120.0,12.0,2.0,1.0
+407,Peanut Butter Cool Milkshake,Drinks And Smoothies,10.0,0.0,Easy,1.0,253.0,23.0,7.0,5.0
+408,Sweet Coffee Milkshake,Drinks And Smoothies,10.0,0.0,Easy,1.0,147.0,15.0,0.5,1.0
+409,The Refreshing Nut Smoothie,Drinks And Smoothies,10.0,0.0,Easy,1.0,452.0,43.0,15.0,9.0
+410,Salted Macadamia Choco Smoothie,Drinks And Smoothies,5.0,0.0,Easy,1.0,165.0,2.0,1.0,12.0
+411,Chia And Coffee Blend,Drinks And Smoothies,10.0,0.0,Easy,1.0,395.0,39.0,11.0,5.2
+412,Cilantro And Citrus Glass,Drinks And Smoothies,5.0,0.0,Easy,1.0,75.0,1.0,16.0,3.0
+413,The Wild Matcha Delight,Drinks And Smoothies,5.0,0.0,Easy,1.0,130.0,3.0,17.0,5.0
+414,Lovely Green Gazpacho,Drinks And Smoothies,5.0,0.0,Easy,1.0,70.0,1.0,13.0,4.0
+415,The Summer Hearty Shake,Drinks And Smoothies,5.0,0.0,Easy,2.0,187.0,6.0,17.0,6.0
+416,Sweet Protein And Cherry Shake,Drinks And Smoothies,5.0,0.0,Easy,2.0,111.0,3.0,9.0,13.0
+417,Iron And Protein Shake,Drinks And Smoothies,5.0,0.0,Easy,2.0,156.0,14.0,1.0,7.0
+418,Flax And Almond Butter Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,147.0,7.0,15.0,4.0
+419,Leeks And Broccoli Cucumber Glass,Drinks And Smoothies,5.0,0.0,Easy,2.0,219.0,6.0,6.0,4.0
+420,Zucchini Apple Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,80.0,4.0,11.0,2.0
+421,Flax And Kiwi Spinach Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,142.0,7.0,16.0,6.0
+422,Tropical Matcha Kale,Drinks And Smoothies,5.0,0.0,Easy,2.0,126.0,2.0,15.0,6.0
+423,Lovely Detox Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,310.0,22.0,18.0,5.0
+424,Minty Smoothie,Drinks And Smoothies,10.0,0.0,Easy,1.0,417.0,43.0,10.0,5.5
+425,Yogurt And Kale Smoothie,Drinks And Smoothies,10.0,0.0,Easy,1.0,329.0,26.0,15.0,11.0
+426,The Raspberry Minty Deligh,Drinks And Smoothies,5.0,0.0,Easy,2.0,75.0,2.0,13.0,2.0
+427,Blueberry Avocado Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,389.0,34.0,17.0,5.0
+428,Cinnamon And Beet Booster Dose,Drinks And Smoothies,5.0,0.0,Easy,2.0,134.0,5.0,12.0,7.0
+429,Cantaloupe Lemon Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,195.0,14.0,16.0,3.0
+430,The Pom Drink,Drinks And Smoothies,5.0,0.0,Easy,2.0,148.0,0.0,12.0,0.0
+431,Balanced Alkaline Veggie Cubes,Drinks And Smoothies,5.0,0.0,Easy,2.0,20.0,0.2,5.0,11.0
+432,Homely Honeydew Twist,Drinks And Smoothies,5.0,0.0,Easy,2.0,190.0,2.0,11.0,2.0
+433,Raw Green Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,298.0,26.0,20.0,4.0
+434,Original Sleepy Bug,Drinks And Smoothies,5.0,0.0,Easy,2.0,156.0,11.0,14.0,4.0
+435,The Ultimate Morning Green,Drinks And Smoothies,5.0,0.0,Easy,2.0,203.0,1.0,8.0,4.0
+436,Refreshing Watermelon Breather,Drinks And Smoothies,5.0,0.0,Easy,2.0,55.0,1.3,9.0,0.9
+437,Fine Liquid Sunrise,Drinks And Smoothies,5.0,0.0,Easy,2.0,196.0,2.0,10.0,13.0
+438,Watercress Detox Delight,Drinks And Smoothies,5.0,0.0,Easy,2.0,150.0,10.0,8.0,7.0
+439,Morning Aloha Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,121.0,6.0,14.0,1.0
+440,The Ginger And Kale Ale,Drinks And Smoothies,5.0,0.0,Easy,2.0,140.0,0.0,18.0,1.0
+441,Anti-Oxidizing Glass,Drinks And Smoothies,5.0,0.0,Easy,2.0,200.0,15.0,16.0,3.0
+442,Bright Rainbow Health,Drinks And Smoothies,5.0,0.0,Easy,2.0,438.0,11.0,9.0,7.0
+443,Great Nutty Lion,Drinks And Smoothies,5.0,0.0,Easy,2.0,250.0,10.0,14.0,8.0
+444,A Whole Melon Surprise,Drinks And Smoothies,5.0,0.0,Easy,2.0,134.0,2.0,7.0,3.0
+445,Muscular Macho Green,Drinks And Smoothies,5.0,0.0,Easy,2.0,200.0,5.0,3.5,6.0
+446,Buddha’s Banana Berry,Drinks And Smoothies,5.0,0.0,Easy,2.0,205.0,1.0,10.0,3.0
+447,Cantaloupe Lettuce Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,209.0,1.0,15.0,12.0
+448,Alkaline Breakfast Breaker,Drinks And Smoothies,5.0,0.0,Easy,2.0,414.0,33.0,15.0,8.0
+449,Mixed Berry Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,222.0,2.0,11.0,8.0
+450,Sweet Kale Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,143.0,1.0,12.0,2.0
+451,Almond Butter Berry Smoothie,Drinks And Smoothies,5.0,0.0,Easy,2.0,603.0,16.0,15.0,56.0
+452,Beets And Berry Beauty Enhancer,Drinks And Smoothies,5.0,0.0,Easy,2.0,418.0,20.0,16.0,17.0
+453,A Honeydew And Cucumber Medley,Drinks And Smoothies,5.0,0.0,Easy,2.0,334.0,7.0,17.0,20.0
+454,Natural Nectarine,Drinks And Smoothies,5.0,0.0,Easy,2.0,475.0,22.0,10.0,11.0
+455,Fine Tea Toner,Drinks And Smoothies,5.0,0.0,Easy,2.0,490.0,14.0,15.0,15.0
+456,A Melon Cucumber Medley,Drinks And Smoothies,5.0,0.0,Easy,2.0,112.0,2.0,15.0,2.0
+457,Kale And Beet 2021 Fusion,Drinks And Smoothies,5.0,0.0,Easy,2.0,69.0,0.0,16.0,4.0
+458,Strawberry And Watermelon Medley,Drinks And Smoothies,5.0,0.0,Easy,2.0,130.0,9.0,15.0,3.0
+459,Punchy Watermelon,Drinks And Smoothies,5.0,0.0,Easy,2.0,464.0,20.0,14.0,23.0
+460,Hearty Cucumber Quencher,Drinks And Smoothies,5.0,0.0,Easy,2.0,180.0,2.0,18.0,5.0
+461,Dandelion Aloha,Drinks And Smoothies,5.0,0.0,Easy,2.0,121.0,5.0,18.0,1.0
+462,Blueberry Detox Drink,Drinks And Smoothies,5.0,0.0,Easy,2.0,685.0,60.0,14.0,32.0
+463,Twisty Cucumber Honeydew,Drinks And Smoothies,5.0,0.0,Easy,2.0,70.0,1.0,13.0,2.0
+464,Chocolaty Pleasure Delight,Drinks And Smoothies,5.0,0.0,Easy,2.0,306.0,8.0,13.0,10.0
+465,Generous Mango Surprise,Drinks And Smoothies,5.0,0.0,Easy,2.0,72.0,0.0,17.0,1.0
+466,Banana Apple Blast,Drinks And Smoothies,5.0,0.0,Easy,2.0,209.0,2.0,15.0,2.0
+467,Dandelion And Carrot Booster,Drinks And Smoothies,5.0,0.0,Easy,2.0,160.0,5.0,17.0,5.0
+468,Green Skinny Energizer,Drinks And Smoothies,5.0,0.0,Easy,2.0,300.0,13.0,16.0,10.0
+469,Awesome Pineapple And Carrot Blend,Drinks And Smoothies,5.0,0.0,Easy,2.0,82.0,0.0,16.0,1.0
+470,Mango Energizer,Drinks And Smoothies,5.0,0.0,Easy,2.0,136.0,2.0,19.0,5.0
+471,Powerful Green Frenzy,Drinks And Smoothies,5.0,0.0,Easy,2.0,350.0,4.0,16.0,30.0
+472,Evergreen Morning Dew,Drinks And Smoothies,5.0,0.0,Easy,2.0,157.0,1.0,15.0,12.0
+473,Awesome Baby-Face Maker,Drinks And Smoothies,5.0,0.0,Easy,2.0,145.0,1.0,14.0,10.0
+474,Exotic Reishi Pear,Drinks And Smoothies,5.0,0.0,Easy,2.0,298.0,19.0,17.0,8.0
+475,The Savior Of Skin,Drinks And Smoothies,5.0,0.0,Easy,2.0,143.0,1.0,19.0,4.0
+476,Tangy Citrus Glass,Drinks And Smoothies,5.0,0.0,Easy,2.0,122.0,1.0,16.0,10.0
+477,Hearty Sweet Basil,Drinks And Smoothies,5.0,0.0,Easy,2.0,100.0,1.0,19.0,3.0
+478,The Purifier,Drinks And Smoothies,5.0,0.0,Easy,2.0,180.0,1.0,13.0,20.0
+479,Kiwi Cucumber Delight,Drinks And Smoothies,5.0,0.0,Easy,2.0,254.0,7.0,14.0,8.0
+480,The Funky Skin Refresher,Drinks And Smoothies,5.0,0.0,Easy,2.0,103.0,1.0,16.0,4.0
+481,The Glamorous Radiance,Drinks And Smoothies,5.0,0.0,Easy,2.0,248.0,10.0,14.0,10.0
+482,Tropical Storm Glass,Drinks And Smoothies,5.0,0.0,Easy,2.0,186.0,0.0,14.0,1.0
+483,Cool Strawberry 365,Drinks And Smoothies,5.0,0.0,Easy,2.0,167.0,6.0,18.0,8.0
+484,Noteworthy Vitamin C,Drinks And Smoothies,5.0,0.0,Easy,2.0,209.0,2.0,17.0,12.0
+485,Hearty Papaya Drink,Drinks And Smoothies,5.0,0.0,Easy,2.0,192.0,7.0,16.0,3.0
+486,A Minty Drink,Drinks And Smoothies,5.0,0.0,Easy,1.0,391.0,10.0,17.0,5.0
+487,The Amazing Acai,Drinks And Smoothies,5.0,0.0,Easy,2.0,225.0,8.0,13.0,4.0
+488,Fine Yo “Mama” Matcha,Drinks And Smoothies,5.0,0.0,Easy,2.0,216.0,1.0,18.0,3.0
+489,Great Green Garden,Drinks And Smoothies,5.0,0.0,Easy,2.0,200.0,6.0,16.0,10.0
