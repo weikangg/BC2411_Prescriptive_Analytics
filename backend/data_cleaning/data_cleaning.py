@@ -1,8 +1,14 @@
 import pandas as pd
 import os
+import numpy as np
 
-def load_data(file_path, target_folder=None):
+def load_data(file_path, target_folder=None, target_filename=None):
     if os.path.isdir(file_path):
+        if target_filename:
+            full_path = os.path.join(file_path, target_filename)
+            if not os.path.exists(full_path) or not os.path.isfile(full_path):
+                raise FileNotFoundError(f"Target file '{target_filename}' not found in {file_path}.")
+            return pd.read_csv(full_path)
         if target_folder:
             folder_to_use = os.path.join(file_path, target_folder)
             if not os.path.exists(folder_to_use) or not os.path.isdir(folder_to_use):
@@ -27,7 +33,6 @@ def clean_keto_diet_data(df: pd.DataFrame) -> pd.DataFrame:
         "category",
         "prep_time_in_minutes",
         "cook_time_in_minutes",
-        "difficulty",
         "serving",
         "calories",
         "fat_in_grams",
@@ -36,58 +41,81 @@ def clean_keto_diet_data(df: pd.DataFrame) -> pd.DataFrame:
     ]
     df = df[keep_cols]
 
+     # Drop serving and category columns
+    df = df.drop(columns=["serving", "category"], errors="ignore")
+    
+    # Create total_time column as sum of prep_time and cook_time, then drop them
+    df["total_time_in_minutes"] = df["prep_time_in_minutes"].fillna(0) + df["cook_time_in_minutes"].fillna(0)
+    df = df.drop(columns=["prep_time_in_minutes", "cook_time_in_minutes"], errors="ignore")
+    
+    # Introduce diet_type as "keto"
+    df["diet_type"] = "keto"
+    
+    # Randomize cuisine_type from a given list
+    cuisine_choices = ['indian', 'mediterranean', 'eastern europe', 'american', 'central europe',
+                     'south east asian', 'italian', 'mexican', 'kosher', 'nordic', 'french',
+                     'chinese', 'british', 'caribbean', 'south american', 'middle eastern', 'asian',
+                     'japanese', 'world']
+    df["cuisine_type"] = np.random.choice(cuisine_choices, size=len(df))
+    
+    # Rename nutritional columns for consistency
     rename_map = {
         "fat_in_grams": "fat",
         "carbohydrates_in_grams": "carbs",
         "protein_in_grams": "protein"
     }
     df.rename(columns=rename_map, inplace=True)
-
-    df.dropna(subset=["calories", "fat", "carbs", "protein"], inplace=True)
-
-    numeric_cols = ["prep_time_in_minutes", "cook_time_in_minutes", "serving",
+    
+    # Remove any non-ASCII characters from text columns
+    df = df.apply(lambda x: x.str.encode('ascii', 'ignore').str.decode('ascii') if x.dtype == "object" else x)
+        
+    # Define final desired column order.
+    desired_cols = ["recipe", "diet_type", "cuisine_type", "total_time_in_minutes",
                     "calories", "fat", "carbs", "protein"]
-    for col in numeric_cols:
-        df[col] = pd.to_numeric(df[col], errors="coerce")
-    df.dropna(subset=numeric_cols, inplace=True)
 
+    for col in desired_cols:
+        if col not in df.columns:
+            df[col] = None
+    df = df[desired_cols]
     return df.reset_index(drop=True)
 
-def clean_nutrition_data(df: pd.DataFrame) -> pd.DataFrame:
-    drop_cols = ["Unnamed: 0.1", "Unnamed: 0"]
-    for c in drop_cols:
-        if c in df.columns:
-            df.drop(columns=[c], inplace=True)
-
+def clean_diets_recipes_and_nutrients_data(df: pd.DataFrame) -> pd.DataFrame:
+    # Drop extraction day and time
+    df = df.drop(columns=["Extraction_day", "Extraction_time"], errors='ignore')
+    
+    # Rename nutritional and recipe columns for consistency
     rename_map = {
-        "Caloric Value": "calories",
-        "Fat": "fat",
-        "Carbohydrates": "carbs",
-        "Protein": "protein"
+        "Protein(g)": "protein",
+        "Carbs(g)": "carbs",
+        "Fat(g)": "fat",
+        "Recipe_name": "recipe"
     }
     df.rename(columns=rename_map, inplace=True)
-
-    keep_cols = [
-        "food",
-        "calories",
-        "fat",
-        "carbs",
-        "protein",
-        # Uncomment or add any other columns as needed:
-        # "Sugars", "Dietary Fiber", "Sodium", etc.
-    ]
-    existing_keep_cols = [c for c in keep_cols if c in df.columns]
-    df = df[existing_keep_cols]
-
-    df.dropna(subset=["food", "calories", "fat", "carbs", "protein"], inplace=True)
-
-    numeric_cols = ["calories", "fat", "carbs", "protein"]
-    for col in numeric_cols:
-        df[col] = pd.to_numeric(df[col], errors="coerce")
-    df.dropna(subset=numeric_cols, inplace=True)
-
+    
+    # Calculate calories: protein*4 + carbs*4 + fat*9
+    df["calories"] = df["protein"] * 4 + df["carbs"] * 4 + df["fat"] * 9
+    
+    # Remove any non-ASCII characters from text columns
+    df = df.apply(lambda x: x.str.encode('ascii', 'ignore').str.decode('ascii') if x.dtype == "object" else x)
+    
+    # Simulate a realistic prep time (in minutes); e.g., random between 20 and 60 minutes.
+    df["total_time_in_minutes"] = np.random.randint(20, 61, size=len(df))
+    
+    # Standardize diet_type and cuisine_type if present (lowercase them)
+    if "Diet_type" in df.columns:
+        df.rename(columns={"Diet_type": "diet_type"}, inplace=True)
+        df["diet_type"] = df["diet_type"].str.lower()
+    if "Cuisine_type" in df.columns:
+        df.rename(columns={"Cuisine_type": "cuisine_type"}, inplace=True)
+        df["cuisine_type"] = df["cuisine_type"].str.lower()
+    
+    # For merging, define final column order.
+    desired_cols = ["recipe", "diet_type", "cuisine_type", "total_time_in_minutes", "calories", "fat", "carbs", "protein"]
+    for col in desired_cols:
+        if col not in df.columns:
+            df[col] = None
+    df = df[desired_cols]
     return df.reset_index(drop=True)
-
 
 def clean_best_exercises_data(df: pd.DataFrame) -> pd.DataFrame:
     keep_cols = [
@@ -169,8 +197,8 @@ def clean_gym_members_exercise_data(df: pd.DataFrame) -> pd.DataFrame:
 def clean_data(df: pd.DataFrame, dataset_key: str) -> pd.DataFrame:
     if dataset_key == "keto_diet":
         return clean_keto_diet_data(df)
-    elif dataset_key == "food_nutrition":
-        return clean_nutrition_data(df)
+    elif dataset_key == "diets_recipes_and_nutrients":
+        return clean_diets_recipes_and_nutrients_data(df)
     elif dataset_key == "best_50_exercises":
         return clean_best_exercises_data(df)
     elif dataset_key == "calories_burned_during_exercise_and_activities":
@@ -179,6 +207,7 @@ def clean_data(df: pd.DataFrame, dataset_key: str) -> pd.DataFrame:
         return clean_gym_members_exercise_data(df)
     else:
         raise ValueError(f"Unsupported dataset key: {dataset_key}")
+
 
 def print_null_summary(df: pd.DataFrame, dataset_name: str) -> None:
     null_summary = df.isnull().sum()

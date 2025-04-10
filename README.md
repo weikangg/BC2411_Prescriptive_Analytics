@@ -5,6 +5,11 @@
 - Create a virtual environment 
 - Download Expo App on Google Play Store/ iOS Play Store
 
+## Introduction to project 
+1. `data/` directory is first generated from `scripts/prepare_data.py` script file which imports data from Kaggle and cleans data as well as simulate some data where not provided for the project.
+2. Brief EDA is conducted in `eda/` directory to get better idea of dataset used.
+3. 
+
 ## Commands to run
 
 To run backend server in the terminal:

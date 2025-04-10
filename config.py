@@ -5,6 +5,7 @@ DATA_DIR = os.path.join(BASE_DIR, 'data')
 RAW_DATA_DIR = os.path.join(DATA_DIR, 'raw')
 INTERIM_DATA_DIR = os.path.join(DATA_DIR, 'interim')
 PROCESSED_DATA_DIR = os.path.join(DATA_DIR, 'processed')
+FINAL_DATA_DIR = os.path.join(DATA_DIR, 'final')
 
 # Set kaggle API Key directory
 os.environ["KAGGLE_CONFIG_DIR"] = os.path.abspath(".")
@@ -15,5 +16,5 @@ KAGGLE_DATASETS = {
     "calories_burned_during_exercise_and_activities": "aadhavvignesh/calories-burned-during-exercise-and-activities",
     "gym_members_exercise": "valakhorasani/gym-members-exercise-dataset",
     "keto_diet": "hamadkhan345/keto-diet-recipes-dataset",
-    "food_nutrition": "utsavdey1410/food-nutrition-dataset"
+    "diets_recipes_and_nutrients": "thedevastator/healthy-diet-recipes-a-comprehensive-dataset"
 }

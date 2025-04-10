@@ -27,3 +27,5 @@ kaggle.json
 # Ignore all expo files and directories
 frontend_mobile/.expo/
 .expo/
+
+tempCodeRunnerFile.py
