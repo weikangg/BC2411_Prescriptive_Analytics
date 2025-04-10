@@ -146,54 +146,6 @@ def clean_best_exercises_data(df: pd.DataFrame) -> pd.DataFrame:
 
     return df.reset_index(drop=True)
 
-def clean_activity_calories_data(df: pd.DataFrame) -> pd.DataFrame:
-    rename_map = {"Activity, Exercise or Sport (1 hour)": "activity_per_hour"}
-    df.rename(columns=rename_map, inplace=True)
-
-    # Ensure numeric conversion for the weight columns and the "Calories per kg" column
-    numeric_cols = ["130 lb", "155 lb", "180 lb", "205 lb", "Calories per kg"]
-    for col in numeric_cols:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors="coerce")
-    df.dropna(subset=numeric_cols, inplace=True)
-
-    return df.reset_index(drop=True)
-
-
-def clean_gym_members_exercise_data(df: pd.DataFrame) -> pd.DataFrame:
-    # Keep relevant columns
-    keep_cols = [
-        "Age",
-        "Gender",
-        "Weight (kg)",
-        "Height (m)",
-        "Max_BPM",
-        "Avg_BPM",
-        "Resting_BPM",
-        "Session_Duration (hours)",
-        "Calories_Burned",
-        "Workout_Type",
-        "Fat_Percentage",
-        "Water_Intake (liters)",
-        "Workout_Frequency (days/week)",
-        "Experience_Level",
-        "BMI"
-    ]
-    df = df[keep_cols]
-
-    # Convert numeric columns
-    numeric_cols = [
-        "Age", "Weight (kg)", "Height (m)", "Max_BPM", "Avg_BPM",
-        "Resting_BPM", "Session_Duration (hours)", "Calories_Burned",
-        "Fat_Percentage", "Water_Intake (liters)", "Workout_Frequency (days/week)",
-        "Experience_Level", "BMI"
-    ]
-    for col in numeric_cols:
-        df[col] = pd.to_numeric(df[col], errors="coerce")
-    df.dropna(subset=numeric_cols, inplace=True)
-
-    return df.reset_index(drop=True)
-
 def clean_data(df: pd.DataFrame, dataset_key: str) -> pd.DataFrame:
     if dataset_key == "keto_diet":
         return clean_keto_diet_data(df)
@@ -201,10 +153,6 @@ def clean_data(df: pd.DataFrame, dataset_key: str) -> pd.DataFrame:
         return clean_diets_recipes_and_nutrients_data(df)
     elif dataset_key == "best_50_exercises":
         return clean_best_exercises_data(df)
-    elif dataset_key == "calories_burned_during_exercise_and_activities":
-        return clean_activity_calories_data(df)
-    elif dataset_key == "gym_members_exercise":
-        return clean_gym_members_exercise_data(df)
     else:
         raise ValueError(f"Unsupported dataset key: {dataset_key}")
 

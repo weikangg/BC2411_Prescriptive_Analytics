@@ -13,8 +13,6 @@ os.environ['KAGGLEHUB_CACHE'] = os.path.join(os.path.dirname(os.path.abspath(__f
 
 KAGGLE_DATASETS = {
     "best_50_exercises": "prajwaldongre/best-50-exercise-for-your-body",
-    "calories_burned_during_exercise_and_activities": "aadhavvignesh/calories-burned-during-exercise-and-activities",
-    "gym_members_exercise": "valakhorasani/gym-members-exercise-dataset",
     "keto_diet": "hamadkhan345/keto-diet-recipes-dataset",
     "diets_recipes_and_nutrients": "thedevastator/healthy-diet-recipes-a-comprehensive-dataset"
 }
