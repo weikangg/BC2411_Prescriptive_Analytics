@@ -40,7 +40,7 @@ def clean_keto_diet_data(df: pd.DataFrame) -> pd.DataFrame:
         "protein_in_grams",
     ]
     df = df[keep_cols]
-
+    df = df[df["calories"] <= 40000]
      # Drop serving and category columns
     df = df.drop(columns=["serving", "category"], errors="ignore")
     
@@ -50,7 +50,6 @@ def clean_keto_diet_data(df: pd.DataFrame) -> pd.DataFrame:
     
     # Introduce diet_type as "keto"
     df["diet_type"] = "keto"
-    
     # Randomize cuisine_type from a given list
     cuisine_choices = ['indian', 'mediterranean', 'eastern europe', 'american', 'central europe',
                      'south east asian', 'italian', 'mexican', 'kosher', 'nordic', 'french',
