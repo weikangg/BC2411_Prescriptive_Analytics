@@ -75,3 +75,11 @@ npx expo start
 ```
 backend/scripts/prepare_data.py
 ```
+## Commands ran to deploy backend on AWS in the root directory
+```
+docker build -t fitness-planner .
+docker tag fitness-planner:latest xxx.dkr.ecr.ap-southeast-1.amazonaws.com/bc2411/fitness-planner:latest
+docker push 144851568201.dkr.ecr.ap-southeast-1.amazonaws.com/bc2411/fitness-planner:latest
+aws ecs register-task-definition --cli-input-json file://task-definition.json
+aws ecs create-service --cluster fitness_planner --service-name fitness_planner_service --task-definition fitness-planner-task --desired-count 1 --launch-type FARGATE --network-configuration "awsvpcConfiguration={subnets=[subnet-xxx],securityGroups=[sg-xxx],assignPublicIp=ENABLED}"
+```
