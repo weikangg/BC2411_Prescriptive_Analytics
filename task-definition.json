@@ -1,0 +1,29 @@
+{
+  "family": "fitness-planner-task",
+  "executionRoleArn": "arn:aws:iam::144851568201:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "containerDefinitions": [
+    {
+      "name": "fitness-planner",
+      "image": "144851568201.dkr.ecr.ap-southeast-1.amazonaws.com/bc2411/fitness-planner:latest",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,  
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/fitness-planner-task",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}

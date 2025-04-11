@@ -1,8 +1,8 @@
 import pandas as pd
 import logging
 # Load the CSV files once (you may choose to cache these globally or load per request if the files are small)
-data1 = pd.read_csv("../data/final/processed_final_diets.csv")
-data2 = pd.read_csv("../data/final/processed_final_exercises.csv")
+data1 = pd.read_csv("./data/processed_final_diets.csv")
+data2 = pd.read_csv("./data/processed_final_exercises.csv")
 
 def filter_data(user_params: dict) -> pd.DataFrame:
     # Example filtering using boolean indexing:

@@ -1,0 +1,94 @@
+exercise_name,calories_burned_30min,difficulty_level,calories_burned_per_min,workout_location,activity_type
+Push-ups,200,Intermediate,6.666666667,home,General
+Squats,223,Beginner,7.433333333,home,General
+Lunges,275,Beginner,9.166666667,home,General
+Burpees,355,Advanced,11.83333333,home,General
+Mountain Climbers,240,Intermediate,8,home,General
+Jumping Jacks,295,Beginner,9.833333333,home,General
+Bicycle Crunches,210,Intermediate,7,home,General
+Dips,180,Intermediate,6,home,General
+Pull-ups,250,Advanced,8.333333333,fitness corner,General
+Russian Twists,190,Intermediate,6.333333333,home,General
+Leg Raises,185,Intermediate,6.166666667,home,General
+Deadlifts,315,Advanced,10.5,gym,General
+Bench Press,280,Intermediate,9.333333333,gym,General
+Rows,260,Intermediate,8.666666667,gym,General
+Shoulder Press,230,Intermediate,7.666666667,gym,General
+Calf Raises,150,Beginner,5,home,General
+Tricep Extensions,170,Intermediate,5.666666667,gym,General
+Lateral Raises,165,Intermediate,5.5,gym,General
+Glute Bridges,200,Beginner,6.666666667,home,General
+Superman,180,Beginner,6,home,General
+Box Jumps,320,Advanced,10.66666667,fitness corner,General
+Kettlebell Swings,335,Intermediate,11.16666667,gym,General
+Step-ups,260,Intermediate,8.666666667,fitness corner,General
+Face Pulls,145,Intermediate,4.833333333,gym,General
+Lat Pulldowns,250,Intermediate,8.333333333,gym,General
+Reverse Lunges,270,Intermediate,9,home,General
+Plyo Squats,315,Intermediate,10.5,home,General
+Scissors Kicks,195,Intermediate,6.5,home,General
+Tricep Dips,180,Intermediate,6,home,General
+Seated Rows,240,Intermediate,8,gym,General
+Flutter Kicks,190,Intermediate,6.333333333,home,General
+Inverted Rows,220,Intermediate,7.333333333,fitness corner,General
+Bulgarian Split Squats,290,Advanced,9.666666667,home,General
+Prone Cobras,160,Beginner,5.333333333,home,General
+Resistance Band Pull-Aparts,140,Beginner,4.666666667,gym,Gym
+Wall Angels,130,Beginner,4.333333333,home,General
+Bird Dogs,175,Beginner,5.833333333,home,General
+Plyometric Push-ups,280,Advanced,9.333333333,home,General
+Decline Push-ups,220,Advanced,7.333333333,home,General
+Incline Push-ups,180,Beginner,6,home,General
+Dead Bugs,165,Beginner,5.5,home,General
+Pistol Squats,300,Advanced,10,home,General
+Zottman Curls,155,Intermediate,5.166666667,gym,General
+Dragon Flags,250,Advanced,8.333333333,home,General
+Renegade Rows,280,Advanced,9.333333333,gym,General
+Frog Jumps,310,Intermediate,10.33333333,home,General
+Turkish Get-ups,240,Advanced,8,gym,General
+Bear Crawls,220,Intermediate,7.333333333,home,General
+Windshield Wipers,200,Advanced,6.666666667,fitness corner,General
+Thrusters,330,Advanced,11,gym,General
+Aerobics,198,Intermediate,6.6,home,Fitness
+Badminton,141,Intermediate,4.7,sports centre,Sports
+Basketball,261,Intermediate,8.7,sports centre,Sports
+Bicycling,396,Advanced,13.2,home,Cardio
+Boxing,324,Advanced,10.8,home,General
+Calisthenics,228,Intermediate,7.6,fitness corner,Fitness
+Elliptical Trainer,324,Intermediate,10.8,gym,Cardio
+Football,324,Intermediate,10.8,sports centre,Sports
+Frisbee,105,Intermediate,3.5,home,General
+Golf,162,Beginner,5.4,home,Sports
+Gymnastics,144,Intermediate,4.8,gym,Gym
+Handball,432,Intermediate,14.4,sports centre,Sports
+Hiking,213,Intermediate,7.1,home,General
+Hockey,288,Intermediate,9.6,sports centre,Sports
+Horseback Riding,70,Intermediate,2.33,home,General
+Ice Skating,252,Intermediate,8.4,pool/sports facility,Outdoor/Water
+Kayaking,180,Intermediate,6,pool/sports facility,Outdoor/Water
+Racquetball,360,Intermediate,12,sports centre,Sports
+Rock Climbing,281,Advanced,9.37,home,General
+Rollerblading/skating (Casual),386,Intermediate,12.87,home,Outdoor/Water
+Rollerblading/skating (Fast),421,Advanced,14.03,home,Outdoor/Water
+Rope Jumping (Fast),421,Advanced,14.03,home,Cardio
+Rope Jumping (Slow),281,Beginner,9.37,home,Cardio
+Running,408,Advanced,13.6,home,Cardio
+Scuba or skin diving,252,Intermediate,8.4,pool/sports facility,Outdoor/Water
+Skateboarding,180,Intermediate,6,home,General
+Ski Machine,342,Intermediate,11.4,gym,Cardio
+Skiing,231,Advanced,7.7,pool/sports facility,Outdoor/Water
+Snow Shoeing,288,Intermediate,9.6,home,General
+Soccer,252,Intermediate,8.4,sports centre,Sports
+Softball,177,Intermediate,5.9,home,General
+Stair Step Machine,216,Intermediate,7.2,gym,Gym
+Swimming,216,Intermediate,7.2,pool/sports facility,Outdoor/Water
+Tai Chi,144,Beginner,4.8,home,Fitness
+Tennis,252,Intermediate,8.4,sports centre,Sports
+Volleyball,288,Intermediate,9.6,sports centre,Sports
+Walk/Jog,216,Intermediate,7.2,home,General
+Walking,149,Intermediate,4.97,home,Cardio
+Water Polo,360,Intermediate,12,pool/sports facility,Outdoor/Water
+Water Skiing,216,Advanced,7.2,pool/sports facility,Outdoor/Water
+Water Volleyball,108,Intermediate,3.6,pool/sports facility,Sports
+Weight Lifting,162,Intermediate,5.4,gym,Gym
+Wrestling,216,Intermediate,7.2,home,Sports
