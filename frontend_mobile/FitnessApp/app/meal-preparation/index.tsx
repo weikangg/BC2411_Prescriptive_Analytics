@@ -1,3 +1,4 @@
+// app/meal-preparation/index.tsx
 import React, { useState, useContext } from "react";
 import {
   View,
@@ -15,6 +16,7 @@ import Slider from "@react-native-community/slider";
 
 import Button from "../../components/Button";
 import { UserContext } from "../../contexts/UserContext";
+import { generatePlan } from "@/services/api";
 
 export default function MealPreparationScreen() {
   const router = useRouter();
@@ -26,12 +28,12 @@ export default function MealPreparationScreen() {
     ...userData.dietRestrictions,
   ]);
   const [dietItems, setDietItems] = useState([
+    { label: "None (no preferences)", value: "none" },
     { label: "Keto", value: "keto" },
     { label: "Mediterranean", value: "mediterranean" },
     { label: "Dash", value: "dash" },
     { label: "Vegan", value: "vegan" },
     { label: "Paleo", value: "paleo" },
-    { label: "None (no preferences)", value: "none" },
   ]);
 
   // 2) Allergies (comma-separated)
@@ -76,26 +78,91 @@ export default function MealPreparationScreen() {
     { label: "Asian", value: "asian" },
   ]);
 
+  // Errors state for validation
+  const [errors, setErrors] = useState({
+    dietRestrictions: "",
+    mealPrepTime: "",
+    mealsPerDay: "",
+  });
+
+  async function handlePlanGeneration(updatedData: any) {
+    try {
+      console.log("Data sent to API:", updatedData);
+      const data = await generatePlan(updatedData);
+      console.log("Data received from API:", data);
+
+      router.push("/plan-summary");
+    } catch (err) {
+      console.error("API error:", err);
+    }
+  }
   const handleGeneratePlan = () => {
-    // Parse allergies string to array
+    // Initialize fresh errors object
+    let newErrors: {
+      dietRestrictions: string;
+      mealPrepTime: string;
+      mealsPerDay: string;
+    } = {
+      dietRestrictions: "",
+      mealPrepTime: "",
+      mealsPerDay: "",
+    };
+
+    let valid = true;
+
+    // Validate Dietary Restrictions: must not be empty.
+    if (dietValue.length === 0) {
+      newErrors.dietRestrictions =
+        "Please select at least one dietary restriction";
+      valid = false;
+    }
+
+    // Validate Meal Prep Time: must be > 0.
+    if (mealPrepTime <= 0) {
+      newErrors.mealPrepTime = "Meal prep time must be greater than 0";
+      valid = false;
+    }
+
+    // Validate Meals per Day: Must be > 0 and less than 10.
+    const mealsNum = parseInt(mealsPerDay, 10);
+    if (isNaN(mealsNum) || mealsNum <= 0) {
+      newErrors.mealsPerDay =
+        "Meals per day must be greater than 0, please eat";
+      valid = false;
+    } else if (mealsNum >= 10) {
+      newErrors.mealsPerDay =
+        "Meals per day must be less than 10, please don't be fat";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+
+    // If any validation fails, stop here.
+    if (!valid) {
+      return;
+    }
+
+    // Parse allergies string to array, trimming extra spaces.
     const allergyArray = allergies
       .split(",")
       .map((item) => item.trim())
       .filter((item) => item.length > 0);
 
+    // Compute the updated data locally, so we have the latest values.
     const updatedData = {
       ...userData,
       dietRestrictions: dietValue, // array of strings
-      allergies: allergyArray,
+      allergies: allergyArray, // can be empty array
       mealPrepTime, // number (minutes)
-      mealsPerDay: parseInt(mealsPerDay, 10) || 0,
-      varietyPreferences: varietyValue,
+      mealsPerDay: mealsNum,
+      varietyPreferences: varietyValue, // can be empty array
     };
 
-    console.log(updatedData);
+    // Update the context state (this update is asynchronous)
     setUserData(updatedData);
 
-    router.push("/plan-summary");
+    // Pass the local updatedData to the API call.
+    handlePlanGeneration(updatedData);
   };
 
   return (
@@ -108,7 +175,7 @@ export default function MealPreparationScreen() {
 
         {/* Dietary Restrictions (Multi-select) */}
         <Text style={styles.label}>Dietary Restrictions:</Text>
-        <View style={{ zIndex: 3000, marginBottom: 20 }}>
+        <View style={{ zIndex: 3000, marginBottom: 5 }}>
           <DropDownPicker
             multiple={true}
             listMode="SCROLLVIEW"
@@ -121,8 +188,12 @@ export default function MealPreparationScreen() {
             placeholder="Select dietary restrictions"
             style={styles.picker}
             dropDownContainerStyle={styles.dropDownContainer}
+            multipleText={dietValue.join(", ")}
           />
         </View>
+        {errors.dietRestrictions ? (
+          <Text style={styles.errorText}>{errors.dietRestrictions}</Text>
+        ) : null}
 
         {/* Allergies (comma-separated) */}
         <Text style={styles.label}>Allergies</Text>
@@ -149,6 +220,9 @@ export default function MealPreparationScreen() {
           />
           <Text style={styles.sliderValue}>{mealPrepTime} min</Text>
         </View>
+        {errors.mealPrepTime ? (
+          <Text style={styles.errorText}>{errors.mealPrepTime}</Text>
+        ) : null}
 
         {/* Meals Per Day */}
         <Text style={styles.label}>Meals Per Day</Text>
@@ -158,6 +232,9 @@ export default function MealPreparationScreen() {
           onChangeText={setMealsPerDay}
           keyboardType="number-pad"
         />
+        {errors.mealsPerDay ? (
+          <Text style={styles.errorText}>{errors.mealsPerDay}</Text>
+        ) : null}
 
         {/* Variety Preferences (Multi-select) */}
         <Text style={styles.label}>Variety Preferences</Text>
@@ -174,6 +251,7 @@ export default function MealPreparationScreen() {
             placeholder="Select preferred cuisines"
             style={styles.picker}
             dropDownContainerStyle={styles.dropDownContainer}
+            multipleText={varietyValue.join(", ")}
           />
         </View>
 
@@ -239,7 +317,7 @@ const styles = StyleSheet.create({
   sliderContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 5,
   },
   slider: {
     flex: 1,
@@ -251,5 +329,10 @@ const styles = StyleSheet.create({
     color: "#000",
     width: 60,
     textAlign: "right",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 10,
   },
 });

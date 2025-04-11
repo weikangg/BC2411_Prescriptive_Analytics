@@ -19,8 +19,7 @@ export default function ProfileSetupScreen() {
   const router = useRouter();
   const { userData, setUserData } = useContext(UserContext);
 
-  // Use string state for inputs so that TextInput can work properly,
-  // then convert them to number when storing.
+  // Using state as strings for inputs and later conversion where needed.
   const [name, setName] = useState(userData.name || "");
   const [age, setAge] = useState(userData.age ? userData.age.toString() : "");
 
@@ -58,26 +57,130 @@ export default function ProfileSetupScreen() {
     userData.daysWeek ? userData.daysWeek.toString() : ""
   );
 
+  // State to hold error messages per field
+  const [errors, setErrors] = useState({
+    name: "",
+    age: "",
+    gender: "",
+    height: "",
+    weight: "",
+    activityLevel: "",
+    freeTime: "",
+    daysWeek: "",
+  });
+
   const handleContinue = () => {
+    // Clear previous errors.
+    let newErrors: {
+      name: string;
+      age: string;
+      gender: string;
+      height: string;
+      weight: string;
+      activityLevel: string;
+      freeTime: string;
+      daysWeek: string;
+    } = {
+      name: "",
+      age: "",
+      gender: "",
+      height: "",
+      weight: "",
+      activityLevel: "",
+      freeTime: "",
+      daysWeek: "",
+    };
+
+    let valid = true;
+
+    // Validate Name (non-empty)
+    if (!name.trim()) {
+      newErrors.name = "Name is required";
+      valid = false;
+    }
+
+    // Validate Age (> 0, < 150)
+    const ageNum = parseInt(age, 10);
+    if (isNaN(ageNum) || ageNum <= 0) {
+      newErrors.age = "Age must be greater than 0";
+      valid = false;
+    } else if (ageNum >= 150) {
+      newErrors.age = "Age must be less than 150";
+      valid = false;
+    }
+
+    // Validate Gender
+    if (!genderValue) {
+      newErrors.gender = "Gender is required";
+      valid = false;
+    }
+
+    // Validate Height (> 0, < 250)
+    const heightNum = parseFloat(height);
+    if (isNaN(heightNum) || heightNum <= 0) {
+      newErrors.height = "Height must be greater than 0";
+      valid = false;
+    } else if (heightNum >= 250) {
+      newErrors.height = "Height must be less than 250 cm";
+      valid = false;
+    }
+
+    // Validate Weight (> 0, < 200)
+    const weightNum = parseFloat(weight);
+    if (isNaN(weightNum) || weightNum <= 0) {
+      newErrors.weight = "Weight must be greater than 0";
+      valid = false;
+    } else if (weightNum >= 200) {
+      newErrors.weight = "Weight must be less than 200 kg";
+      valid = false;
+    }
+
+    // Validate Activity Level
+    if (!activityLevelValue) {
+      newErrors.activityLevel = "Activity Level is required";
+      valid = false;
+    }
+
+    // Validate Free Time (0-24)
+    const freeTimeNum = parseFloat(freeTime);
+    if (isNaN(freeTimeNum) || freeTimeNum < 0 || freeTimeNum > 24) {
+      newErrors.freeTime = "Free Time per day must be between 0 and 24 hours";
+      valid = false;
+    }
+
+    // Validate No. of Days a Week (1-7)
+    const daysWeekNum = parseInt(daysWeek, 10);
+    if (isNaN(daysWeekNum) || daysWeekNum < 1 || daysWeekNum > 7) {
+      newErrors.daysWeek = "Days per week must be between 1 and 7";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+
+    // If not valid, do not continue
+    if (!valid) {
+      return;
+    }
+
+    // If everything is validated, update the user context and navigate to the next page.
     const updatedData = {
       ...userData,
       name,
-      age: parseInt(age, 10) || 0,
+      age: ageNum,
       gender: genderValue,
-      height: parseFloat(height) || 0,
-      weight: parseFloat(weight) || 0,
+      height: heightNum,
+      weight: weightNum,
       activityLevel: activityLevelValue,
-      freeTime: parseFloat(freeTime) || 0,
-      daysWeek: parseInt(daysWeek, 10) || 0,
+      freeTime: freeTimeNum,
+      daysWeek: daysWeekNum,
     };
 
-    console.log(updatedData); // Logs the updated data immediately
+    console.log("Updated Data:", updatedData);
     setUserData(updatedData);
     router.push("/goal-setting");
   };
 
   return (
-    // Dismiss keyboard by tapping outside text inputs
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
@@ -92,6 +195,9 @@ export default function ProfileSetupScreen() {
         <View style={styles.fieldContainer}>
           <Text style={styles.inputLabel}>Name</Text>
           <TextInput style={styles.input} value={name} onChangeText={setName} />
+          {errors.name ? (
+            <Text style={styles.errorText}>{errors.name}</Text>
+          ) : null}
         </View>
 
         {/* Age Field */}
@@ -103,6 +209,9 @@ export default function ProfileSetupScreen() {
             onChangeText={setAge}
             keyboardType="number-pad"
           />
+          {errors.age ? (
+            <Text style={styles.errorText}>{errors.age}</Text>
+          ) : null}
         </View>
 
         {/* Gender Picker */}
@@ -123,6 +232,9 @@ export default function ProfileSetupScreen() {
             style={pickerStyles.picker}
             dropDownContainerStyle={pickerStyles.dropDownContainer}
           />
+          {errors.gender ? (
+            <Text style={styles.errorText}>{errors.gender}</Text>
+          ) : null}
         </View>
 
         {/* Height Field */}
@@ -134,6 +246,9 @@ export default function ProfileSetupScreen() {
             onChangeText={setHeight}
             keyboardType="number-pad"
           />
+          {errors.height ? (
+            <Text style={styles.errorText}>{errors.height}</Text>
+          ) : null}
         </View>
 
         {/* Weight Field */}
@@ -145,6 +260,9 @@ export default function ProfileSetupScreen() {
             onChangeText={setWeight}
             keyboardType="number-pad"
           />
+          {errors.weight ? (
+            <Text style={styles.errorText}>{errors.weight}</Text>
+          ) : null}
         </View>
 
         {/* Activity Level Picker */}
@@ -165,6 +283,9 @@ export default function ProfileSetupScreen() {
             style={pickerStyles.picker}
             dropDownContainerStyle={pickerStyles.dropDownContainer}
           />
+          {errors.activityLevel ? (
+            <Text style={styles.errorText}>{errors.activityLevel}</Text>
+          ) : null}
         </View>
 
         {/* Free Time Per Day Field */}
@@ -176,6 +297,9 @@ export default function ProfileSetupScreen() {
             onChangeText={setFreeTime}
             keyboardType="number-pad"
           />
+          {errors.freeTime ? (
+            <Text style={styles.errorText}>{errors.freeTime}</Text>
+          ) : null}
         </View>
 
         {/* Number of Days a Week Field */}
@@ -185,6 +309,7 @@ export default function ProfileSetupScreen() {
             style={styles.input}
             value={daysWeek}
             onChangeText={(val) => {
+              // Allow only single digit numbers (and empty string to permit deletions)
               if (val === "" || /^[1-7]$/.test(val)) {
                 setDaysWeek(val);
               }
@@ -192,6 +317,9 @@ export default function ProfileSetupScreen() {
             keyboardType="number-pad"
             maxLength={1}
           />
+          {errors.daysWeek ? (
+            <Text style={styles.errorText}>{errors.daysWeek}</Text>
+          ) : null}
         </View>
 
         <Text style={styles.disclaimer}>
@@ -253,6 +381,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: 20,
     color: "#555",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginTop: 4,
   },
 });
 

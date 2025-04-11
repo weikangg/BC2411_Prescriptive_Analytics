@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import DropDownPicker from "react-native-dropdown-picker";
-
 import Button from "../../components/Button";
 import { UserContext } from "../../contexts/UserContext";
 
@@ -20,7 +19,7 @@ export default function GoalSettingScreen() {
   const router = useRouter();
   const { userData, setUserData } = useContext(UserContext);
 
-  // 1. Goal Type: Use a single-select DropDownPicker.
+  // Dropdown and input state
   const [openGoalType, setOpenGoalType] = useState(false);
   const [goalTypeValue, setGoalTypeValue] = useState(userData.goalType || "");
   const [goalTypeItems, setGoalTypeItems] = useState([
@@ -29,12 +28,10 @@ export default function GoalSettingScreen() {
     { label: "Endurance", value: "endurance" },
   ]);
 
-  // 2. Goal Duration (months) as a number-pad input.
   const [goalDuration, setGoalDuration] = useState(
     userData.goalDuration ? userData.goalDuration.toString() : ""
   );
 
-  // 3. Fitness Level (single-select dropdown)
   const [openFitness, setOpenFitness] = useState(false);
   const [fitnessValue, setFitnessValue] = useState(userData.fitnessLevel || "");
   const [fitnessItems, setFitnessItems] = useState([
@@ -43,7 +40,6 @@ export default function GoalSettingScreen() {
     { label: "Advanced", value: "advanced" },
   ]);
 
-  // 4. Preferred Workout Location (single-select dropdown)
   const [openLocation, setOpenLocation] = useState(false);
   const [locationValue, setLocationValue] = useState(
     userData.preferredLocation || ""
@@ -56,30 +52,96 @@ export default function GoalSettingScreen() {
     { label: "Sports Facilities", value: "sports_facilities" },
   ]);
 
-  // 5. Preferred Workout Type (single-select dropdown)
   const [openType, setOpenType] = useState(false);
   const [typeValue, setTypeValue] = useState(
     userData.preferredWorkoutType || ""
   );
   const [typeItems, setTypeItems] = useState([
-    { label: "Pushups / General", value: "pushups" },
+    { label: "General", value: "general" },
     { label: "Cardio", value: "cardio" },
     { label: "Outdoor/Water", value: "outdoor_water" },
     { label: "Gym Workouts", value: "gym_workouts" },
     { label: "None (No preference)", value: "none" },
   ]);
 
+  // Errors state for validation
+  const [errors, setErrors] = useState({
+    goalType: "",
+    goalDuration: "",
+    fitnessLevel: "",
+    preferredLocation: "",
+    preferredWorkoutType: "",
+  });
+
   const handleContinue = () => {
+    // Initialize a new error object
+    let newErrors: {
+      goalType: string;
+      goalDuration: string;
+      fitnessLevel: string;
+      preferredLocation: string;
+      preferredWorkoutType: string;
+    } = {
+      goalType: "",
+      goalDuration: "",
+      fitnessLevel: "",
+      preferredLocation: "",
+      preferredWorkoutType: "",
+    };
+
+    let valid = true;
+
+    // Validate Goal Type
+    if (!goalTypeValue) {
+      newErrors.goalType = "Goal type is required";
+      valid = false;
+    }
+    
+    // Validate Goal Duration: Should be > 0 and less than 6 months.
+    const durationNum = parseInt(goalDuration, 10);
+    if (isNaN(durationNum) || durationNum <= 0) {
+      newErrors.goalDuration = "Goal duration must be greater than 0";
+      valid = false;
+    } else if (durationNum >= 6) {
+      newErrors.goalDuration = "Goal duration should be less than 6 months";
+      valid = false;
+    }
+
+    // Validate Fitness Level
+    if (!fitnessValue) {
+      newErrors.fitnessLevel = "Fitness level is required";
+      valid = false;
+    }
+    
+    // Validate Preferred Workout Location
+    if (!locationValue) {
+      newErrors.preferredLocation = "Preferred workout location is required";
+      valid = false;
+    }
+    
+    // Validate Preferred Workout Type
+    if (!typeValue) {
+      newErrors.preferredWorkoutType = "Preferred workout type is required";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+
+    if (!valid) {
+      return;
+    }
+
+    // Update user data and navigate
     const updatedData = {
       ...userData,
       goalType: goalTypeValue,
-      goalDuration: parseInt(goalDuration, 10) || 0,
+      goalDuration: durationNum,
       fitnessLevel: fitnessValue,
       preferredLocation: locationValue,
       preferredWorkoutType: typeValue,
     };
 
-    console.log(updatedData);
+    console.log("Updated Data:", updatedData);
     setUserData(updatedData);
     router.push("/meal-preparation");
   };
@@ -110,8 +172,11 @@ export default function GoalSettingScreen() {
           style={styles.picker}
           dropDownContainerStyle={styles.dropDownContainer}
         />
+        {errors.goalType ? (
+          <Text style={styles.errorText}>{errors.goalType}</Text>
+        ) : null}
 
-        {/* Goal Duration in months */}
+        {/* Goal Duration Input */}
         <Text style={styles.label}>Goal Duration (Months)</Text>
         <TextInput
           style={styles.input}
@@ -119,8 +184,11 @@ export default function GoalSettingScreen() {
           onChangeText={setGoalDuration}
           keyboardType="number-pad"
         />
+        {errors.goalDuration ? (
+          <Text style={styles.errorText}>{errors.goalDuration}</Text>
+        ) : null}
 
-        {/* Fitness Level */}
+        {/* Fitness Level Dropdown */}
         <Text style={styles.label}>Fitness Level</Text>
         <DropDownPicker
           listMode="SCROLLVIEW"
@@ -138,8 +206,11 @@ export default function GoalSettingScreen() {
           style={styles.picker}
           dropDownContainerStyle={styles.dropDownContainer}
         />
+        {errors.fitnessLevel ? (
+          <Text style={styles.errorText}>{errors.fitnessLevel}</Text>
+        ) : null}
 
-        {/* Preferred Workout Location */}
+        {/* Preferred Workout Location Dropdown */}
         <Text style={styles.label}>Preferred Workout Location</Text>
         <DropDownPicker
           listMode="SCROLLVIEW"
@@ -157,8 +228,11 @@ export default function GoalSettingScreen() {
           style={styles.picker}
           dropDownContainerStyle={styles.dropDownContainer}
         />
+        {errors.preferredLocation ? (
+          <Text style={styles.errorText}>{errors.preferredLocation}</Text>
+        ) : null}
 
-        {/* Preferred Workout Type */}
+        {/* Preferred Workout Type Dropdown */}
         <Text style={styles.label}>Preferred Workout Type</Text>
         <DropDownPicker
           listMode="SCROLLVIEW"
@@ -176,6 +250,9 @@ export default function GoalSettingScreen() {
           style={styles.picker}
           dropDownContainerStyle={styles.dropDownContainer}
         />
+        {errors.preferredWorkoutType ? (
+          <Text style={styles.errorText}>{errors.preferredWorkoutType}</Text>
+        ) : null}
 
         <Button title="Continue to Meal Preparation" onPress={handleContinue} />
       </ScrollView>
@@ -234,10 +311,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontFamily: "Inter_400Regular",
     color: "#000",
-    zIndex: 3000,
   },
   dropDownContainer: {
     borderColor: "#bbb",
     borderRadius: 6,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 10,
   },
 });

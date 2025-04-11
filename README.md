@@ -51,7 +51,7 @@ In the terminal:
 ```
 pip install -r requirements.txt
 cd backend_server
-uvicorn main:app --reload
+uvicorn main:app --reload --host 0.0.0.0
 ```
 
 To run frontend mobile app in the terminal:
