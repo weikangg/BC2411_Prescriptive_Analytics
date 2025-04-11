@@ -3,6 +3,7 @@
 ## 📦 Prerequisites
 
 - **Python Version:** 3.12
+- **NodeJS**: [Download here](https://nodejs.org/en/download)
 - **Virtual Environment:** Create and activate a virtual environment
 - **Expo App:** Install from the [Google Play Store](https://play.google.com/store) or [Apple App Store](https://www.apple.com/app-store/)
 
