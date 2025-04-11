@@ -59,6 +59,8 @@ To run frontend mobile app in the terminal:
 ```
 cd frontend_mobile/FitnessApp
 npm i
+npx expo install @react-native-community/slider
+npx expo install @react-native-picker/picker
 npx expo start
 ```
 
