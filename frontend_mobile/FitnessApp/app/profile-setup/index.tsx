@@ -47,7 +47,9 @@ export default function ProfileSetupScreen() {
   const [activityLevelItems, setActivityLevelItems] = useState([
     { label: "Sedentary", value: "Sedentary" },
     { label: "Lightly Active", value: "Lightly Active" },
+    { label: "Moderately Active", value: "Moderately Active" },
     { label: "Very Active", value: "Very Active" },
+    { label: "Extra Active", value: "Extra Active" },
   ]);
 
   const [freeTime, setFreeTime] = useState(

@@ -10,8 +10,22 @@ export async function generatePlan(userData: any): Promise<any> {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
     });
+    
     if (!response.ok) {
-      throw new Error("Network response was not OK");
+      // Try to get details about the error from the response body.
+      let errorDetails: string = "";
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const errorJson = await response.json();
+        errorDetails = JSON.stringify(errorJson, null, 2);
+      } else {
+        errorDetails = await response.text();
+      }
+      
+      // Build a detailed error message including status code and details.
+      throw new Error(
+        `Request failed with status code ${response.status}. ${errorDetails}`
+      );
     }
     return await response.json();
   } catch (error) {

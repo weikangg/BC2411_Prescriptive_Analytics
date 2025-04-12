@@ -1,33 +1,38 @@
-# routers/optimize.py
-
 import logging
 from fastapi import APIRouter, HTTPException
 from models.input_schema import UserData
 from models.output_schema import OptimizationResult
 from optimization.optimizer import simulated_optimization_result
-from data.preprocessing import filter_data
+from data.preprocessing import filter_diets, filter_exercises
+from utils.calculations import compute_user_metrics
 
 router = APIRouter()
-
-# Configure logging (this could be configured globally instead)
 logging.basicConfig(level=logging.INFO)
 
-@router.post("/optimize", response_model=OptimizationResult)
+@router.post("/optimize", response_model=OptimizationResult, tags=["optimize"])
 async def optimize(user_data: UserData):
     try:
-        # Log the input received from the frontend
-        logging.info("\nReceived user input: %s", user_data.model_dump())
+        params = user_data.model_dump()
+        logging.info("Received user input:\n%s", params)
 
-        # Filter the CSV data based on user input
-        filtered_data = filter_data(user_data.model_dump())
+        # 1. Filter diets & exercises
+        diets = filter_diets(params)
+        print(diets.head())
+        print(len(diets))
 
-        result = simulated_optimization_result()
+        exercises = filter_exercises(params)
+        print(exercises.head())
+        print(len(exercises))
 
-        # Log the output that will be returned
-        logging.info("\nOptimization result: %s", result)
+        # 2. Compute BMR/TDEE/etc.
+        metrics = compute_user_metrics(params)
+        logging.info("Computed user metrics:\n%s", metrics)
 
-        return {"plan": result}
+        # 3. (later) call your real optimizer; for now simulate
+        plan = simulated_optimization_result()
+
+        return {"plan": plan}
+
     except Exception as e:
-        # Optionally log the error details
-        logging.error("Error during optimization: %s", str(e))
+        logging.error("Error during optimization: %s", e, exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))

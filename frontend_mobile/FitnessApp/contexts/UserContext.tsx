@@ -11,15 +11,16 @@ export interface UserData {
   freeTime: number;
   daysWeek: number;
   goalType: string;
-  goalDuration: number;
+  goalWeight: number;
+  goalTargetDate?: string;
   fitnessLevel: string;
   preferredLocation: string;
   preferredWorkoutType: string;
   dietRestrictions: string[];
   allergies: string[];
-  mealPrepTime: number;       
-  mealsPerDay: number;        
-  varietyPreferences: string[]; 
+  mealPrepTime: number;
+  mealsPerDay: number;
+  varietyPreferences: string[];
 }
 
 interface UserContextProps {
@@ -38,7 +39,8 @@ export const UserContext = createContext<UserContextProps>({
     freeTime: 0,
     daysWeek: 0,
     goalType: "",
-    goalDuration: 0,
+    goalWeight: 0,
+    goalTargetDate: "",
     fitnessLevel: "",
     preferredLocation: "",
     preferredWorkoutType: "",
@@ -62,7 +64,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
     freeTime: 0,
     daysWeek: 0,
     goalType: "",
-    goalDuration: 0,
+    goalWeight: 0,
+    goalTargetDate: "",
     fitnessLevel: "",
     preferredLocation: "",
     preferredWorkoutType: "",

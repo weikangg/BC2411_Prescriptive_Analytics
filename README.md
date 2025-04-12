@@ -64,6 +64,12 @@ npx expo install @react-native-picker/picker
 npx expo start
 ```
 
+To start frontend mobile app for everyone and to share the app instead:
+
+```
+npx expo start --tunnel
+```
+
 - Then, open the Expo App on your phone and scan the QR code displayed in the terminal.
 
 ## To run script to get data from kaggle
@@ -75,7 +81,9 @@ npx expo start
 ```
 backend/scripts/prepare_data.py
 ```
+
 ## Commands ran to deploy backend on AWS in the root directory
+
 ```
 docker build -t fitness-planner .
 docker tag fitness-planner:latest xxx.dkr.ecr.ap-southeast-1.amazonaws.com/bc2411/fitness-planner:latest

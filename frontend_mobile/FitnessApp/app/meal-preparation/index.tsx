@@ -24,9 +24,11 @@ export default function MealPreparationScreen() {
 
   // 1) Dietary Restrictions (Multi-select)
   const [openDiet, setOpenDiet] = useState(false);
-  const [dietValue, setDietValue] = useState<string[]>([
-    ...userData.dietRestrictions,
-  ]);
+  const [dietValue, setDietValue] = useState<string[]>(
+    userData.dietRestrictions && userData.dietRestrictions.length > 0
+      ? userData.dietRestrictions
+      : ["none"]
+  );
   const [dietItems, setDietItems] = useState([
     { label: "None (no preferences)", value: "none" },
     { label: "Keto", value: "keto" },
@@ -53,10 +55,13 @@ export default function MealPreparationScreen() {
 
   // 5) Variety Preferences (Multi-select)
   const [openVariety, setOpenVariety] = useState(false);
-  const [varietyValue, setVarietyValue] = useState<string[]>([
-    ...userData.varietyPreferences,
-  ]);
+  const [varietyValue, setVarietyValue] = useState<string[]>(
+    userData.varietyPreferences && userData.varietyPreferences.length > 0
+      ? userData.varietyPreferences
+      : ["none"]
+  );
   const [varietyItems, setVarietyItems] = useState([
+    { label: "None (no preferences)", value: "none" },
     { label: "Chinese", value: "chinese" },
     { label: "Caribbean", value: "caribbean" },
     { label: "American", value: "american" },
@@ -87,17 +92,21 @@ export default function MealPreparationScreen() {
 
   async function handlePlanGeneration(updatedData: any) {
     try {
-      console.log("Data sent to API:", updatedData);
       const data = await generatePlan(updatedData);
       console.log("Data received from API:", data);
 
-      router.push("/plan-summary");
+      const planString = JSON.stringify(data);
+      // Pass the plan data as a query parameter to plan-summary
+      router.push({
+        pathname: "/plan-summary",
+        params: { plan: planString },
+      });
     } catch (err) {
       console.error("API error:", err);
     }
   }
+
   const handleGeneratePlan = () => {
-    // Initialize fresh errors object
     let newErrors: {
       dietRestrictions: string;
       mealPrepTime: string;
@@ -110,20 +119,17 @@ export default function MealPreparationScreen() {
 
     let valid = true;
 
-    // Validate Dietary Restrictions: must not be empty.
     if (dietValue.length === 0) {
       newErrors.dietRestrictions =
         "Please select at least one dietary restriction";
       valid = false;
     }
 
-    // Validate Meal Prep Time: must be > 0.
     if (mealPrepTime <= 0) {
       newErrors.mealPrepTime = "Meal prep time must be greater than 0";
       valid = false;
     }
 
-    // Validate Meals per Day: Must be > 0 and less than 10.
     const mealsNum = parseInt(mealsPerDay, 10);
     if (isNaN(mealsNum) || mealsNum <= 0) {
       newErrors.mealsPerDay =
@@ -136,32 +142,26 @@ export default function MealPreparationScreen() {
     }
 
     setErrors(newErrors);
-
-    // If any validation fails, stop here.
     if (!valid) {
       return;
     }
 
-    // Parse allergies string to array, trimming extra spaces.
+    // Parse allergies string to array.
     const allergyArray = allergies
       .split(",")
       .map((item) => item.trim())
       .filter((item) => item.length > 0);
 
-    // Compute the updated data locally, so we have the latest values.
     const updatedData = {
       ...userData,
-      dietRestrictions: dietValue, // array of strings
-      allergies: allergyArray, // can be empty array
-      mealPrepTime, // number (minutes)
+      dietRestrictions: dietValue,
+      allergies: allergyArray,
+      mealPrepTime,
       mealsPerDay: mealsNum,
-      varietyPreferences: varietyValue, // can be empty array
+      varietyPreferences: varietyValue,
     };
 
-    // Update the context state (this update is asynchronous)
     setUserData(updatedData);
-
-    // Pass the local updatedData to the API call.
     handlePlanGeneration(updatedData);
   };
 
@@ -174,7 +174,9 @@ export default function MealPreparationScreen() {
         </View>
 
         {/* Dietary Restrictions (Multi-select) */}
-        <Text style={styles.label}>Dietary Restrictions:</Text>
+        <Text style={styles.label}>
+          Dietary Restrictions: (multi-select)
+        </Text>
         <View style={{ zIndex: 3000, marginBottom: 5 }}>
           <DropDownPicker
             multiple={true}
@@ -196,12 +198,12 @@ export default function MealPreparationScreen() {
         ) : null}
 
         {/* Allergies (comma-separated) */}
-        <Text style={styles.label}>Allergies</Text>
+        <Text style={styles.label}>Allergies (optional)</Text>
         <TextInput
           style={styles.input}
           value={allergies}
           onChangeText={setAllergies}
-          placeholder="e.g. Peanuts, Shellfish"
+          placeholder="e.g. peanuts, gluten"
           placeholderTextColor="#aaa"
         />
 
@@ -278,17 +280,20 @@ const styles = StyleSheet.create({
     lineHeight: 36,
     textAlign: "center",
     marginBottom: 10,
+    color: "#000",
   },
   subtitle: {
     fontFamily: "Inter_700Bold",
     fontSize: 15,
     lineHeight: 15,
     textAlign: "center",
+    color: "#000",
   },
   label: {
     fontFamily: "Inter_700Bold",
     fontSize: 16,
     marginBottom: 5,
+    color: "#000",
   },
   input: {
     borderWidth: 1,
@@ -307,6 +312,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: Platform.OS === "ios" ? 10 : 5,
+    marginBottom: 20,
     fontFamily: "Inter_400Regular",
     color: "#000",
   },
