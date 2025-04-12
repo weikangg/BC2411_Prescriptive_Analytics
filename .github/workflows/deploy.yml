@@ -1,0 +1,46 @@
+name: Deploy to ECS
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ap-southeast-1
+  ECR_REPOSITORY: bc2411/fitness-planner
+  IMAGE_TAG: latest
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, Tag, and Push Docker image
+        run: |
+          docker build -t fitness-planner .
+          docker tag fitness-planner:latest 144851568201.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          docker push 144851568201.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+
+      - name: Register new ECS Task Definition
+        run: |
+          aws ecs register-task-definition --cli-input-json file://task-definition.json
+
+      - name: Update ECS Service to use new Task Definition
+        run: |
+          FAMILY=$(jq -r '.family' task-definition.json)
+          REVISION=$(aws ecs describe-task-definition --task-definition $FAMILY | jq '.taskDefinition.revision')
+          aws ecs update-service --cluster default --service fitness-planner-service --task-definition $FAMILY:$REVISION
