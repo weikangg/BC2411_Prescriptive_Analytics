@@ -44,3 +44,36 @@ jobs:
           FAMILY=$(jq -r '.family' task-definition.json)
           REVISION=$(aws ecs describe-task-definition --task-definition $FAMILY | jq '.taskDefinition.revision')
           aws ecs update-service --cluster fitness_planner --service fitness_planner_service --task-definition $FAMILY:$REVISION
+
+      - name: Stop Old Running Task
+        run: |
+          CLUSTER_NAME=fitness_planner
+          SERVICE_NAME=fitness_planner_service
+
+          # Get the running task ID
+          OLD_TASK=$(aws ecs list-tasks --cluster $CLUSTER_NAME --service-name $SERVICE_NAME --desired-status RUNNING --output text --query 'taskArns[0]')
+
+          if [ -n "$OLD_TASK" ]; then
+            echo "Stopping old task: $OLD_TASK"
+            aws ecs stop-task --cluster $CLUSTER_NAME --task $OLD_TASK --reason "Replaced by new deployment"
+          else
+            echo "No running task found."
+          fi
+
+      - name: Deregister Old Task Definitions
+        run: |
+          FAMILY=$(jq -r '.family' task-definition.json)
+          LATEST_REVISION=$(aws ecs describe-task-definition --task-definition $FAMILY | jq '.taskDefinition.revision')
+
+          echo "Keeping latest revision: $LATEST_REVISION"
+
+          # Get all revisions
+          ALL_REVISIONS=$(aws ecs list-task-definitions --family-prefix $FAMILY --sort DESC --output text --query 'taskDefinitionArns[*]')
+
+          for ARN in $ALL_REVISIONS; do
+            REV=$(echo $ARN | awk -F: '{print $NF}')
+            if [ "$REV" -ne "$LATEST_REVISION" ]; then
+              echo "Deregistering old task definition: $ARN"
+              aws ecs deregister-task-definition --task-definition $ARN
+            fi
+          done
