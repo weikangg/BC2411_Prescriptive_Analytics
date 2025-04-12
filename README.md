@@ -3,6 +3,7 @@
 ## 📦 Prerequisites
 
 - **Python Version:** 3.12
+- **NodeJS**: [Download here](https://nodejs.org/en/download)
 - **Virtual Environment:** Create and activate a virtual environment
 - **Expo App:** Install from the [Google Play Store](https://play.google.com/store) or [Apple App Store](https://www.apple.com/app-store/)
 
@@ -91,3 +92,5 @@ docker push xxx.dkr.ecr.ap-southeast-1.amazonaws.com/bc2411/fitness-planner:late
 aws ecs register-task-definition --cli-input-json file://task-definition.json
 aws ecs create-service --cluster fitness_planner --service-name fitness_planner_service --task-definition fitness-planner-task --desired-count 1 --launch-type FARGATE --network-configuration "awsvpcConfiguration={subnets=[subnet-xxx],securityGroups=[sg-xxx],assignPublicIp=ENABLED}"
 ```
+
+- Backend deployed on : http://18.141.193.96:8000/docs
