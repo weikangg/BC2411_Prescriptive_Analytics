@@ -43,4 +43,4 @@ jobs:
         run: |
           FAMILY=$(jq -r '.family' task-definition.json)
           REVISION=$(aws ecs describe-task-definition --task-definition $FAMILY | jq '.taskDefinition.revision')
-          aws ecs update-service --cluster default --service fitness-planner-service --task-definition $FAMILY:$REVISION
+          aws ecs update-service --cluster fitness_planner --service fitness_planner_service --task-definition $FAMILY:$REVISION
