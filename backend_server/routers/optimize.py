@@ -29,9 +29,9 @@ async def optimize(user_data: UserData):
         logging.info("Computed user metrics:\n%s", metrics)
 
         # 3. (later) call your real optimizer; for now simulate
-        plan = simulated_optimization_result()
+        plan = simulated_optimization_result(params)
 
-        return {"plan": plan}
+        return plan
 
     except Exception as e:
         logging.error("Error during optimization: %s", e, exc_info=True)

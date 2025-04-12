@@ -1,4 +1,3 @@
-// app/meal-preparation/index.tsx
 import React, { useState, useContext } from "react";
 import {
   View,
@@ -9,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   TextInput,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -21,6 +21,7 @@ import { generatePlan } from "@/services/api";
 export default function MealPreparationScreen() {
   const router = useRouter();
   const { userData, setUserData } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 1) Dietary Restrictions (Multi-select)
   const [openDiet, setOpenDiet] = useState(false);
@@ -92,9 +93,9 @@ export default function MealPreparationScreen() {
 
   async function handlePlanGeneration(updatedData: any) {
     try {
+      console.log("Data sent to API:", updatedData);
       const data = await generatePlan(updatedData);
       console.log("Data received from API:", data);
-
       const planString = JSON.stringify(data);
       // Pass the plan data as a query parameter to plan-summary
       router.push({
@@ -103,6 +104,8 @@ export default function MealPreparationScreen() {
       });
     } catch (err) {
       console.error("API error:", err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -161,104 +164,114 @@ export default function MealPreparationScreen() {
       varietyPreferences: varietyValue,
     };
 
+    // Show loader, then update the context and call API.
+    setIsLoading(true);
     setUserData(updatedData);
     handlePlanGeneration(updatedData);
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled>
-        <View style={styles.headerContainer}>
-          <Text style={styles.title}>Meal Preparations</Text>
-          <Text style={styles.subtitle}>What are your food preferences?</Text>
+      {isLoading ? (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#228B22" />
+          <Text style={styles.loadingText}>Generating your plan...</Text>
         </View>
+      ) : (
+        <ScrollView
+          contentContainerStyle={styles.container}
+          nestedScrollEnabled
+        >
+          <View style={styles.headerContainer}>
+            <Text style={styles.title}>Meal Preparations</Text>
+            <Text style={styles.subtitle}>What are your food preferences?</Text>
+          </View>
 
-        {/* Dietary Restrictions (Multi-select) */}
-        <Text style={styles.label}>
-          Dietary Restrictions: (multi-select)
-        </Text>
-        <View style={{ zIndex: 3000, marginBottom: 5 }}>
-          <DropDownPicker
-            multiple={true}
-            listMode="SCROLLVIEW"
-            open={openDiet}
-            value={dietValue}
-            items={dietItems}
-            setOpen={setOpenDiet}
-            setValue={setDietValue}
-            setItems={setDietItems}
-            placeholder="Select dietary restrictions"
-            style={styles.picker}
-            dropDownContainerStyle={styles.dropDownContainer}
-            multipleText={dietValue.join(", ")}
+          {/* Dietary Restrictions (Multi-select) */}
+          <Text style={styles.label}>Dietary Restrictions: (multi-select)</Text>
+          <View style={{ zIndex: 3000, marginBottom: 5 }}>
+            <DropDownPicker
+              multiple={true}
+              listMode="SCROLLVIEW"
+              open={openDiet}
+              value={dietValue}
+              items={dietItems}
+              setOpen={setOpenDiet}
+              setValue={setDietValue}
+              setItems={setDietItems}
+              placeholder="Select dietary restrictions"
+              style={styles.picker}
+              dropDownContainerStyle={styles.dropDownContainer}
+              multipleText={dietValue.join(", ")}
+            />
+          </View>
+          {errors.dietRestrictions ? (
+            <Text style={styles.errorText}>{errors.dietRestrictions}</Text>
+          ) : null}
+
+          {/* Allergies (comma-separated) */}
+          <Text style={styles.label}>Allergies (optional)</Text>
+          <TextInput
+            style={styles.input}
+            value={allergies}
+            onChangeText={setAllergies}
+            placeholder="e.g. peanuts, gluten"
+            placeholderTextColor="#aaa"
           />
-        </View>
-        {errors.dietRestrictions ? (
-          <Text style={styles.errorText}>{errors.dietRestrictions}</Text>
-        ) : null}
 
-        {/* Allergies (comma-separated) */}
-        <Text style={styles.label}>Allergies (optional)</Text>
-        <TextInput
-          style={styles.input}
-          value={allergies}
-          onChangeText={setAllergies}
-          placeholder="e.g. peanuts, gluten"
-          placeholderTextColor="#aaa"
-        />
+          {/* Meal Prep Time (Slider) */}
+          <Text style={styles.label}>Meal Prep Time (minutes)</Text>
+          <View style={styles.sliderContainer}>
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={120}
+              step={5}
+              value={mealPrepTime}
+              onValueChange={setMealPrepTime}
+              minimumTrackTintColor="#228B22"
+              maximumTrackTintColor="#cccccc"
+            />
+            <Text style={styles.sliderValue}>{mealPrepTime} min</Text>
+          </View>
+          {errors.mealPrepTime ? (
+            <Text style={styles.errorText}>{errors.mealPrepTime}</Text>
+          ) : null}
 
-        {/* Meal Prep Time (Slider) */}
-        <Text style={styles.label}>Meal Prep Time (minutes)</Text>
-        <View style={styles.sliderContainer}>
-          <Slider
-            style={styles.slider}
-            minimumValue={0}
-            maximumValue={120}
-            step={5}
-            value={mealPrepTime}
-            onValueChange={setMealPrepTime}
-            minimumTrackTintColor="#228B22"
-            maximumTrackTintColor="#cccccc"
+          {/* Meals Per Day */}
+          <Text style={styles.label}>Meals Per Day</Text>
+          <TextInput
+            style={styles.input}
+            value={mealsPerDay}
+            onChangeText={setMealsPerDay}
+            keyboardType="number-pad"
           />
-          <Text style={styles.sliderValue}>{mealPrepTime} min</Text>
-        </View>
-        {errors.mealPrepTime ? (
-          <Text style={styles.errorText}>{errors.mealPrepTime}</Text>
-        ) : null}
+          {errors.mealsPerDay ? (
+            <Text style={styles.errorText}>{errors.mealsPerDay}</Text>
+          ) : null}
 
-        {/* Meals Per Day */}
-        <Text style={styles.label}>Meals Per Day</Text>
-        <TextInput
-          style={styles.input}
-          value={mealsPerDay}
-          onChangeText={setMealsPerDay}
-          keyboardType="number-pad"
-        />
-        {errors.mealsPerDay ? (
-          <Text style={styles.errorText}>{errors.mealsPerDay}</Text>
-        ) : null}
+          {/* Variety Preferences (Multi-select) */}
+          <Text style={styles.label}>Variety Preferences</Text>
+          <View style={{ zIndex: 2000, marginBottom: 20 }}>
+            <DropDownPicker
+              multiple={true}
+              listMode="SCROLLVIEW"
+              open={openVariety}
+              value={varietyValue}
+              items={varietyItems}
+              setOpen={setOpenVariety}
+              setValue={setVarietyValue}
+              setItems={setVarietyItems}
+              placeholder="Select preferred cuisines"
+              style={styles.picker}
+              dropDownContainerStyle={styles.dropDownContainer}
+              multipleText={varietyValue.join(", ")}
+            />
+          </View>
 
-        {/* Variety Preferences (Multi-select) */}
-        <Text style={styles.label}>Variety Preferences</Text>
-        <View style={{ zIndex: 2000, marginBottom: 20 }}>
-          <DropDownPicker
-            multiple={true}
-            listMode="SCROLLVIEW"
-            open={openVariety}
-            value={varietyValue}
-            items={varietyItems}
-            setOpen={setOpenVariety}
-            setValue={setVarietyValue}
-            setItems={setVarietyItems}
-            placeholder="Select preferred cuisines"
-            style={styles.picker}
-            dropDownContainerStyle={styles.dropDownContainer}
-            multipleText={varietyValue.join(", ")}
-          />
-        </View>
-
-        <Button title="Generate my plan!" onPress={handleGeneratePlan} />
-      </ScrollView>
+          <Button title="Generate my plan!" onPress={handleGeneratePlan} />
+        </ScrollView>
+      )}
     </TouchableWithoutFeedback>
   );
 }
@@ -340,5 +353,17 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 12,
     marginBottom: 10,
+  },
+  loaderContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    marginTop: 10,
+    fontFamily: "Inter_400Regular",
+    fontSize: 16,
+    color: "#228B22",
   },
 });

@@ -121,6 +121,24 @@ export default function GoalSettingScreen() {
     } else if (parsedGoalWeight >= 200) {
       newErrors.goalWeight = "Goal weight must be less than 200 kg";
       valid = false;
+    } else {
+      // Additional check based on goal type if current weight exists in context.
+      const currentWeight = userData.weight;
+      if (
+        goalTypeValue === "weight_loss" &&
+        parsedGoalWeight >= currentWeight
+      ) {
+        newErrors.goalWeight =
+          "If you're aiming to lose weight, your goal weight should be lower than your current weight! Think about it...";
+        valid = false;
+      } else if (
+        goalTypeValue === "weight_gain" &&
+        parsedGoalWeight <= currentWeight
+      ) {
+        newErrors.goalWeight =
+          "For weight gain, your goal weight must be higher than your current weight! That's common sense, right?";
+        valid = false;
+      }
     }
 
     // Validate that the target date is not in the past.
@@ -141,8 +159,7 @@ export default function GoalSettingScreen() {
       valid = false;
     }
     if (!typeValue) {
-      newErrors.preferredWorkoutType =
-        "Preferred workout type is required";
+      newErrors.preferredWorkoutType = "Preferred workout type is required";
       valid = false;
     }
 
@@ -339,7 +356,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Inter_400Regular",
     color: "#000",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   picker: {
     borderColor: "#bbb",
@@ -361,7 +378,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingVertical: 10,
     paddingHorizontal: 0,
-    backgroundColor: "#fff", 
+    backgroundColor: "#fff",
     marginBottom: 20,
   },
   errorText: {

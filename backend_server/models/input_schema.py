@@ -18,7 +18,6 @@ class UserData(BaseModel):
     preferredLocation: str
     preferredWorkoutType: str
     dietRestrictions: List[str]
-    allergies: List[str]
     mealPrepTime: Annotated[int, Field(strict=True, gt=0, le=120)]
     mealsPerDay: Annotated[int, Field(strict=True, gt=0)]
     varietyPreferences: List[str]

@@ -1,69 +1,303 @@
-// app/plan-summary/[day].tsx
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
+  Image,
+  ActivityIndicator,
+  Dimensions,
   TouchableOpacity,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { fetchSerpImage } from "../../services/serpApi";
 
 export default function DayDetailScreen() {
-  const { day, plan } = useLocalSearchParams<{ day: string; plan?: string }>();
+  const { day } = useLocalSearchParams<{ day: string }>();
   const router = useRouter();
 
-  console.log(`Plan for ${day}:`, plan);
-  console.log(`Day:`, day);
+  const dayItem = day ? JSON.parse(day) : null;
 
-  // Optionally, parse the plan JSON if passed as a string.
-  const dayPlan = plan ? JSON.parse(plan) : null;
+  const [mealImages, setMealImages] = useState<(string | null)[]>(
+    dayItem.selected_meals.map(() => null)
+  );
+  const [exerciseImages, setExerciseImages] = useState<(string | null)[]>(
+    dayItem.selected_exercises.map(() => null)
+  );
+  const [isLoadingImages, setIsLoadingImages] = useState(true);
+
+  // Create a cache to store query-to-image mappings.
+  const imageCacheRef = useRef<{ [query: string]: string }>({});
+
+  // Helper function: If the image for a query is cached, return it; if not, fetch and cache it.
+  async function getImage(query: string): Promise<string> {
+    if (imageCacheRef.current[query]) {
+      return imageCacheRef.current[query];
+    }
+    const imageUrl = await fetchSerpImage(query);
+    imageCacheRef.current[query] = imageUrl;
+    return imageUrl;
+  }
+
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchAllImages() {
+      try {
+        const newMealImages = await Promise.all(
+          dayItem.selected_meals.map((meal: any) => getImage(meal.recipe))
+        );
+        const newExerciseImages = await Promise.all(
+          dayItem.selected_exercises.map((ex: any) => getImage(ex.name))
+        );
+        if (!cancelled) {
+          setMealImages(newMealImages);
+          setExerciseImages(newExerciseImages);
+          setIsLoadingImages(false);
+        }
+      } catch (error) {
+        console.error("Error fetching images:", error);
+        setIsLoadingImages(false);
+      }
+    }
+    fetchAllImages();
+    return () => {
+      cancelled = true;
+    };
+  }, [dayItem]);
+
+  // Render loader if images are not loaded
+  if (isLoadingImages) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="#228B22" />
+        <Text style={styles.loadingText}>Loading day details...</Text>
+      </View>
+    );
+  }
+
+  // Format date as "12 / 04"
+  const dayDate = new Date(dayItem.day);
+  const dayStr = dayDate.toLocaleDateString("en-US", {
+    weekday: "short",
+    day: "numeric",
+  });
+  const month = (dayDate.getMonth() + 1).toString().padStart(2, "0");
+  const formattedDate = `${dayStr} / ${month}`;
+
+  function handleDone() {
+    router.push("/");
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Plan for {day}</Text>
-      {/* Display the plan details for this day */}
-      {dayPlan ? (
-        <Text style={styles.planText}>{JSON.stringify(dayPlan, null, 2)}</Text>
-      ) : (
-        <Text>No details available.</Text>
-      )}
+      <Text style={styles.headerTitle}>Daily Plan</Text>
+      <Text style={styles.headerSubtitle}>{formattedDate}</Text>
 
-      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-        <Text style={styles.backButtonText}>Back</Text>
-      </TouchableOpacity>
+      <Text style={styles.calorieRequirement}>
+        Caloric Requirement:{" "}
+        {dayItem.total_net_calories > 0
+          ? `+${dayItem.total_net_calories}`
+          : dayItem.total_net_calories}{" "}
+        kcal
+      </Text>
+      <View style={styles.separatorLine} />
+
+      <Text style={styles.sectionHeader}>Suggested Meals</Text>
+      {dayItem.selected_meals.map((meal: any, index: number) => (
+        <View key={index} style={styles.mealRow}>
+          <Image
+            source={{ uri: mealImages[index] || "" }}
+            style={styles.mealImage}
+            resizeMode="cover"
+          />
+          <View style={styles.mealDetails}>
+            <Text style={styles.mealNumber}>Meal {index + 1}</Text>
+            <View style={styles.mealInfoRow}>
+              <Text style={styles.mealRecipe}>{meal.recipe}</Text>
+              <Text style={styles.mealCalories}>{meal.calories} kcal</Text>
+            </View>
+            <Text style={styles.mealTotalTime}>
+              Total Time (Meal Prep + Cook): {meal.total_time} min
+            </Text>
+          </View>
+          <View style={styles.separatorLine} />
+        </View>
+      ))}
+
+      <Text style={styles.sectionHeader}>Suggested Exercises</Text>
+      {dayItem.selected_exercises.map((exercise: any, index: number) => (
+        <View key={index} style={styles.exerciseRow}>
+          <Image
+            source={{ uri: exerciseImages[index] || "" }}
+            style={styles.exerciseImage}
+            resizeMode="cover"
+          />
+          <View style={styles.exerciseDetails}>
+            <Text style={styles.exerciseTitle}>
+              Exercise {index + 1}: {exercise.name}
+            </Text>
+            <View style={styles.exerciseInfoRow}>
+              <Text style={styles.exerciseDetail}>Type: {exercise.type}</Text>
+              <Text style={styles.exerciseDetail}>
+                Location: {exercise.location}
+              </Text>
+            </View>
+            <View style={styles.exerciseInfoRow}>
+              <Text style={styles.exerciseDetail}>
+                Duration: {exercise.duration} min
+              </Text>
+              <Text style={styles.exerciseDetail}>
+                Burned: {exercise.estimated_calories_burned} kcal
+              </Text>
+            </View>
+          </View>
+          <View style={styles.separatorLine} />
+        </View>
+      ))}
+
+      <View style={styles.bottomButtonsContainer}>
+        <TouchableOpacity
+          style={[styles.fullWidthButton, styles.doneButton]}
+          onPress={handleDone}
+        >
+          <Text style={styles.fullWidthButtonText}>Done</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
+
+const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
     padding: 20,
     backgroundColor: "#fff",
-    flexGrow: 1,
   },
-  title: {
-    fontSize: 30,
-    fontFamily: "Inter_700Bold",
-    textAlign: "center",
-    marginBottom: 20,
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  planText: {
+  loadingText: {
+    marginTop: 10,
     fontFamily: "Inter_400Regular",
     fontSize: 16,
-    lineHeight: 22,
+    color: "#228B22",
   },
-  backButton: {
-    marginTop: 20,
-    backgroundColor: "rgba(22,143,85,1)",
-    paddingVertical: 10,
-    borderRadius: 8,
-    alignSelf: "center",
-    paddingHorizontal: 20,
+  headerTitle: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 32,
+    textAlign: "center",
+    marginBottom: 5,
+    color: "#000",
   },
-  backButtonText: {
-    color: "#fff",
+  headerSubtitle: {
     fontFamily: "Inter_700Bold",
     fontSize: 16,
+    textAlign: "center",
+    marginBottom: 20,
+    color: "#000",
+  },
+  calorieRequirement: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 20,
+    marginBottom: 0,
+    color: "#000",
+  },
+  sectionHeader: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 18,
+    marginVertical: 10,
+    color: "#000",
+  },
+  mealRow: {
+    marginBottom: 15,
+  },
+  mealImage: {
+    width: width - 40,
+    height: 120,
+    borderRadius: 6,
+    marginBottom: 5,
+  },
+  mealDetails: {
+    flexDirection: "column",
+  },
+  mealNumber: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 16,
+    marginBottom: 3,
+    color: "#000",
+  },
+  mealInfoRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  mealRecipe: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 15,
+    color: "#333",
+  },
+  mealCalories: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 15,
+    color: "#333",
+  },
+  mealTotalTime: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    color: "#333",
+    marginTop: 2,
+  },
+  separatorLine: {
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderColor: "#ccc",
+  },
+  exerciseRow: {
+    marginBottom: 15,
+  },
+  exerciseImage: {
+    width: width - 40,
+    height: 120,
+    borderRadius: 6,
+    marginBottom: 5,
+  },
+  exerciseDetails: {
+    flexDirection: "column",
+  },
+  exerciseTitle: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 16,
+    color: "#000",
+    marginBottom: 3,
+  },
+  exerciseInfoRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  exerciseDetail: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    color: "#333",
+  },
+  bottomButtonsContainer: {
+    marginTop: 20,
+  },
+  fullWidthButton: {
+    backgroundColor: "#9ECAE1",
+    borderRadius: 8,
+    paddingVertical: 14,
+    width: "100%",
+    marginBottom: 10,
+    alignItems: "center",
+  },
+  doneButton: {
+    backgroundColor: "rgba(22,143,85,1)",
+  },
+  fullWidthButtonText: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 16,
+    color: "#fff",
   },
 });
