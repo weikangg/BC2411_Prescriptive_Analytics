@@ -89,6 +89,7 @@ backend/scripts/prepare_data.py
 
 ## Commands ran from project root directory to deploy backend on AWS
 
+- These commands were for previously when deployment was done manually, now deployment is automated when there are new changes pushed to the main branch of this repository. One can reference the yaml file [here](https://github.com/weikangg/BC2411_Prescriptive_Analytics/actions/runs/14421469397/workflow). The AWS secrets have to be added before it can be ran successfully.
 ```
 docker build -t fitness-planner .
 docker tag fitness-planner:latest 144851568201.dkr.ecr.ap-southeast-1.amazonaws.com/bc2411/fitness-planner:latest
@@ -99,4 +100,4 @@ aws ecs register-task-definition --cli-input-json file://task-definition.json
 aws ecs create-service --cluster fitness_planner --service-name fitness_planner_service --task-definition fitness-planner-task --desired-count 1 --launch-type FARGATE --network-configuration "awsvpcConfiguration={subnets=[subnet-xxx],securityGroups=[sg-xxx],assignPublicIp=ENABLED}"
 ```
 
-- Backend deployed on : http://54.254.95.165:8000/docs
+- Backend deployed on : http://13.215.183.140:8000/docs
