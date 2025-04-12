@@ -1,7 +1,7 @@
 # BC2411 Prescriptive Analytics - FitPlanner
 
 ## 🎥 Demo
-[![Watch the demo](https://drive.google.com/file/d/1M_OK8AePLnTy__OF45xMOjSbUlwzcWhs/view?usp=sharing)
+![Watch the demo](https://drive.google.com/file/d/1M_OK8AePLnTy__OF45xMOjSbUlwzcWhs/view)
 
 ## 📦 Prerequisites
 
