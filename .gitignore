@@ -29,3 +29,5 @@ frontend_mobile/.expo/
 .expo/
 
 tempCodeRunnerFile.py
+
+gurobi.log
