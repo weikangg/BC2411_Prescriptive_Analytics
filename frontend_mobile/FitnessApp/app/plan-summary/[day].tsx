@@ -15,7 +15,6 @@ import { fetchSerpImage } from "../../services/serpApi";
 export default function DayDetailScreen() {
   const { day } = useLocalSearchParams<{ day: string }>();
   const router = useRouter();
-
   const dayItem = day ? JSON.parse(day) : null;
 
   const [mealImages, setMealImages] = useState<(string | null)[]>(
@@ -26,14 +25,15 @@ export default function DayDetailScreen() {
   );
   const [isLoadingImages, setIsLoadingImages] = useState(true);
 
-  // Create a cache to store query-to-image mappings.
+  // Create a cache for query-to-image mappings.
   const imageCacheRef = useRef<{ [query: string]: string }>({});
 
-  // Helper function: If the image for a query is cached, return it; if not, fetch and cache it.
+  // Helper: Return cached image URL if exists, otherwise fetch and cache.
   async function getImage(query: string): Promise<string> {
     if (imageCacheRef.current[query]) {
       return imageCacheRef.current[query];
     }
+    console.log("Pinging SERP API for:", query);
     const imageUrl = await fetchSerpImage(query);
     imageCacheRef.current[query] = imageUrl;
     return imageUrl;
@@ -65,7 +65,6 @@ export default function DayDetailScreen() {
     };
   }, [dayItem]);
 
-  // Render loader if images are not loaded
   if (isLoadingImages) {
     return (
       <View style={styles.loaderContainer}>
@@ -75,14 +74,11 @@ export default function DayDetailScreen() {
     );
   }
 
-  // Format date as "12 / 04"
+  // Format date as "DD / MM"
   const dayDate = new Date(dayItem.day);
-  const dayStr = dayDate.toLocaleDateString("en-US", {
-    weekday: "short",
-    day: "numeric",
-  });
+  const dayNumber = dayDate.getDate().toString().padStart(2, "0");
   const month = (dayDate.getMonth() + 1).toString().padStart(2, "0");
-  const formattedDate = `${dayStr} / ${month}`;
+  const formattedDate = `${dayNumber} / ${month}`;
 
   function handleDone() {
     router.push("/");
@@ -94,10 +90,7 @@ export default function DayDetailScreen() {
       <Text style={styles.headerSubtitle}>{formattedDate}</Text>
 
       <Text style={styles.calorieRequirement}>
-        Caloric Requirement:{" "}
-        {dayItem.total_net_calories > 0
-          ? `+${dayItem.total_net_calories}`
-          : dayItem.total_net_calories}{" "}
+        Caloric Requirement: {Number(dayItem.total_net_calories).toFixed(2)}{" "}
         kcal
       </Text>
       <View style={styles.separatorLine} />
@@ -111,14 +104,17 @@ export default function DayDetailScreen() {
             resizeMode="cover"
           />
           <View style={styles.mealDetails}>
-            <Text style={styles.mealNumber}>Meal {index + 1}</Text>
-            <View style={styles.mealInfoRow}>
-              <Text style={styles.mealRecipe}>{meal.recipe}</Text>
-              <Text style={styles.mealCalories}>{meal.calories} kcal</Text>
-            </View>
-            <Text style={styles.mealTotalTime}>
-              Total Time (Meal Prep + Cook): {meal.total_time} min
+            <Text style={styles.mealNumber}>
+              Meal {index + 1}: {meal.recipe}
             </Text>
+            <View style={styles.mealInfoRow}>
+              <Text style={styles.mealTotalTime}>
+                Total Time: {Number(meal.total_time).toFixed(2)} min
+              </Text>
+              <Text style={styles.mealCalories}>
+                {Number(meal.calories).toFixed(2)} kcal
+              </Text>
+            </View>
           </View>
           <View style={styles.separatorLine} />
         </View>
@@ -144,10 +140,11 @@ export default function DayDetailScreen() {
             </View>
             <View style={styles.exerciseInfoRow}>
               <Text style={styles.exerciseDetail}>
-                Duration: {exercise.duration} min
+                Duration: {Number(exercise.duration).toFixed(2)} min
               </Text>
               <Text style={styles.exerciseDetail}>
-                Burned: {exercise.estimated_calories_burned} kcal
+                Burned: {Number(exercise.estimated_calories_burned).toFixed(2)}{" "}
+                kcal
               </Text>
             </View>
           </View>
@@ -155,14 +152,9 @@ export default function DayDetailScreen() {
         </View>
       ))}
 
-      <View style={styles.bottomButtonsContainer}>
-        <TouchableOpacity
-          style={[styles.fullWidthButton, styles.doneButton]}
-          onPress={handleDone}
-        >
-          <Text style={styles.fullWidthButtonText}>Done</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.doneButton} onPress={handleDone}>
+        <Text style={styles.doneButtonText}>Done</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -187,13 +179,13 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontFamily: "Inter_700Bold",
-    fontSize: 32,
+    fontSize: 28,
     textAlign: "center",
     marginBottom: 5,
     color: "#000",
   },
   headerSubtitle: {
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Inter_400Regular",
     fontSize: 16,
     textAlign: "center",
     marginBottom: 20,
@@ -201,8 +193,8 @@ const styles = StyleSheet.create({
   },
   calorieRequirement: {
     fontFamily: "Inter_700Bold",
-    fontSize: 20,
-    marginBottom: 0,
+    fontSize: 16,
+    marginBottom: 20,
     color: "#000",
   },
   sectionHeader: {
@@ -222,6 +214,24 @@ const styles = StyleSheet.create({
   },
   mealDetails: {
     flexDirection: "column",
+    // You can add marginVertical or padding here if needed.
+  },
+  mealInfoRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 4,
+  },
+  mealTotalTime: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    color: "#333",
+  },
+  mealCalories: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 15,
+    color: "#333",
+    // Optionally, textAlign:"right" if needed.
   },
   mealNumber: {
     fontFamily: "Inter_700Bold",
@@ -229,26 +239,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     color: "#000",
   },
-  mealInfoRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  mealRecipe: {
-    fontFamily: "Inter_400Regular",
-    fontSize: 15,
-    color: "#333",
-  },
-  mealCalories: {
-    fontFamily: "Inter_600SemiBold",
-    fontSize: 15,
-    color: "#333",
-  },
-  mealTotalTime: {
-    fontFamily: "Inter_400Regular",
-    fontSize: 14,
-    color: "#333",
-    marginTop: 2,
-  },
+
   separatorLine: {
     marginTop: 10,
     borderBottomWidth: 1,
@@ -281,21 +272,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#333",
   },
-  bottomButtonsContainer: {
-    marginTop: 20,
-  },
-  fullWidthButton: {
-    backgroundColor: "#9ECAE1",
+  doneButton: {
+    backgroundColor: "rgba(22,143,85,1)",
     borderRadius: 8,
     paddingVertical: 14,
     width: "100%",
-    marginBottom: 10,
     alignItems: "center",
+    marginTop: 20,
   },
-  doneButton: {
-    backgroundColor: "rgba(22,143,85,1)",
-  },
-  fullWidthButtonText: {
+  doneButtonText: {
     fontFamily: "Inter_700Bold",
     fontSize: 16,
     color: "#fff",

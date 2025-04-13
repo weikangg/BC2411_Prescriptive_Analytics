@@ -49,15 +49,21 @@ export default function PlanSummaryScreen() {
   const stats = hasPlan
     ? [
         {
-          label: `Time Used: ${weeklyInfo.avg_free_time_used}/${weeklyInfo.free_time_week} min`,
+          label: `Time Used: ${Number(
+            weeklyInfo.avg_free_time_used.toFixed(2)
+          )}/${weeklyInfo.free_time_week} min`,
         },
-        { label: `Workout/day: ${weeklyInfo.avg_workout_duration} min` },
+        {
+          label: `Workout/day: ${Number(
+            weeklyInfo.avg_workout_duration.toFixed(2)
+          )} min`,
+        },
         { label: `Meals/day: ${weeklyInfo.meals_per_day}` },
         {
           label: `Calories/day: ${
             weeklyInfo.avg_net_calories > 0
-              ? "+" + weeklyInfo.avg_net_calories
-              : weeklyInfo.avg_net_calories
+              ? "+" + Number(weeklyInfo.avg_net_calories).toFixed(2)
+              : Number(weeklyInfo.avg_net_calories).toFixed(2)
           } kcal`,
         },
       ]
