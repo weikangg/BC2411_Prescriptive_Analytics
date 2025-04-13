@@ -31,7 +31,7 @@ jobs:
 
       - name: Build, Tag, and Push Docker image
         run: |
-          docker build -t fitness-planner .
+          docker build --build-arg GUROBI_LIC="${{ secrets.GUROBI_LIC }}" -t fitness-planner .
           docker tag fitness-planner:latest 144851568201.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           docker push 144851568201.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
 

@@ -91,21 +91,21 @@ pydantic_core==2.33.1
 Pygments==2.19.1
 pynput==1.8.1
 pyparsing==3.2.3
-PyQt5==5.15.11
-PyQt5-Qt5==5.15.2
-PyQt5_sip==12.17.0
-PyQtWebEngine==5.15.7
-PyQtWebEngine-Qt5==5.15.2
+#PyQt5==5.15.11
+#PyQt5-Qt5==5.15.2
+#PyQt5_sip==12.17.0
+#PyQtWebEngine==5.15.7
+#PyQtWebEngine-Qt5==5.15.2
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.0
 python-json-logger==3.3.0
 python-multipart==0.0.20
-pytz==2025.2
-#pywin32==310
-#pywinpty==2.0.15
+# pytz==2025.2
+# pywin32==310
+# pywinpty==2.0.15
 PyYAML==6.0.2
 pyzmq==26.4.0
-#qtstylish==0.1.5
+# qtstylish==0.1.5
 referencing==0.36.2
 requests==2.32.3
 rfc3339-validator==0.1.4
@@ -140,4 +140,4 @@ webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
 websockets==15.0.1
-wordcloud==1.9.4
+# wordcloud==1.9.4

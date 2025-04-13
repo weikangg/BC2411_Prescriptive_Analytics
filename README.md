@@ -102,8 +102,9 @@ backend/scripts/prepare_data.py
 ## Commands ran from project root directory to deploy backend on AWS
 
 - These commands were for previously when deployment was done manually, now deployment is automated when there are new changes pushed to the main branch of this repository. One can reference the yaml file [here](https://github.com/weikangg/BC2411_Prescriptive_Analytics/actions/runs/14421469397/workflow). The AWS secrets have to be added before it can be ran successfully.
+- Note: The first docker build command requires you to acquire the WLS Academic Gurobi license [here](https://portal.gurobi.com/iam/licenses/request/?type=academic), to automate deployment I added it to Github secrets as well: 
 ```
-docker build -t fitness-planner .
+docker build --build-arg GUROBI_LIC="$(cat gurobi.lic)" -t fitness-planner .
 docker tag fitness-planner:latest 144851568201.dkr.ecr.ap-southeast-1.amazonaws.com/bc2411/fitness-planner:latest
 aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --pass
 word-stdin 144851568201.dkr.ecr.ap-southeast-1.amazonaws.com
