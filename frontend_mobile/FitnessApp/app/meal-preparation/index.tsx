@@ -138,9 +138,9 @@ export default function MealPreparationScreen() {
       newErrors.mealsPerDay =
         "Meals per day must be greater than 0, please eat";
       valid = false;
-    } else if (mealsNum >= 10) {
+    } else if (mealsNum >= 8) {
       newErrors.mealsPerDay =
-        "Meals per day must be less than 10, please don't be fat";
+        "Meals per day must be less than 8, please don't be fat";
       valid = false;
     }
 
