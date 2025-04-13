@@ -51,6 +51,12 @@ This project aims to create a prescriptive analytics tool using dietary and exer
 
 5. As such, final datasets for both exercise and diet are derived from Kaggle sources and enhanced with simulated data.
 
+### Model Formulation
+The implementation of the detailed formulation of the model can be found at `preprocessing/model_optimization/model.ipynb`. Within this file, you can also find:
+1. Helper functions used to calculate key information such as a user's BMR, TDEE.
+2. Functions to solve the model.
+3. Functions to provide recommendations based on infeasibility of solution to the user.
+4. Analysis of solutions including test cases for infeasible user input such as attempting to lose 20kg in a span of 3 days.
 ---
 
 ## 🖥️ How to Run the Application
