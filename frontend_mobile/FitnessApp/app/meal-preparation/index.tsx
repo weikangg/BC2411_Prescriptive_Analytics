@@ -39,11 +39,6 @@ export default function MealPreparationScreen() {
     { label: "Paleo", value: "paleo" },
   ]);
 
-  // 2) Allergies (comma-separated)
-  const [allergies, setAllergies] = useState<string>(
-    userData.allergies.join(", ")
-  );
-
   // 3) Meal Prep Time (Slider: 0 to 120 minutes)
   const [mealPrepTime, setMealPrepTime] = useState<number>(
     userData.mealPrepTime || 0
@@ -97,7 +92,6 @@ export default function MealPreparationScreen() {
       const data = await generatePlan(updatedData);
       console.log("Data received from API:", data);
       const planString = JSON.stringify(data);
-      // Pass the plan data as a query parameter to plan-summary
       router.push({
         pathname: "/plan-summary",
         params: { plan: planString },
@@ -149,42 +143,41 @@ export default function MealPreparationScreen() {
       return;
     }
 
-    // Parse allergies string to array.
-    const allergyArray = allergies
-      .split(",")
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0);
-
     const updatedData = {
       ...userData,
       dietRestrictions: dietValue,
-      allergies: allergyArray,
       mealPrepTime,
       mealsPerDay: mealsNum,
       varietyPreferences: varietyValue,
     };
 
-    // Show loader, then update the context and call API.
     setIsLoading(true);
     setUserData(updatedData);
     handlePlanGeneration(updatedData);
   };
 
+  if (isLoading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="#228B22" />
+        <Text style={styles.loadingText}>Generating your plan...</Text>
+      </View>
+    );
+  }
+
+  // Wrap the scroll view and footer in a parent view so the footer is always flushed at the bottom.
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      {isLoading ? (
-        <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color="#228B22" />
-          <Text style={styles.loadingText}>Generating your plan...</Text>
-        </View>
-      ) : (
+      <View style={styles.fullContainer}>
         <ScrollView
-          contentContainerStyle={styles.container}
+          contentContainerStyle={styles.scrollContainer}
           nestedScrollEnabled
         >
           <View style={styles.headerContainer}>
             <Text style={styles.title}>Meal Preparations</Text>
-            <Text style={styles.subtitle}>What are your food preferences?</Text>
+            <Text style={styles.subtitle}>
+              What are your food preferences?
+            </Text>
           </View>
 
           {/* Dietary Restrictions (Multi-select) */}
@@ -208,16 +201,6 @@ export default function MealPreparationScreen() {
           {errors.dietRestrictions ? (
             <Text style={styles.errorText}>{errors.dietRestrictions}</Text>
           ) : null}
-
-          {/* Allergies (comma-separated) */}
-          <Text style={styles.label}>Allergies (optional)</Text>
-          <TextInput
-            style={styles.input}
-            value={allergies}
-            onChangeText={setAllergies}
-            placeholder="e.g. peanuts, gluten"
-            placeholderTextColor="#aaa"
-          />
 
           {/* Meal Prep Time (Slider) */}
           <Text style={styles.label}>Meal Prep Time (minutes)</Text>
@@ -268,19 +251,25 @@ export default function MealPreparationScreen() {
               multipleText={varietyValue.join(", ")}
             />
           </View>
-
-          <Button title="Generate my plan!" onPress={handleGeneratePlan} />
         </ScrollView>
-      )}
+        <View style={styles.footerContainer}>
+          <Button title="Generate my plan!" onPress={handleGeneratePlan} />
+        </View>
+      </View>
     </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 20,
-    paddingBottom: 40,
+  fullContainer: {
+    flex: 1,
     backgroundColor: "#fff",
+  },
+  scrollContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    backgroundColor: "#fff",
+    flexGrow: 1,
   },
   headerContainer: {
     marginTop: 50,
@@ -353,6 +342,12 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 12,
     marginBottom: 10,
+  },
+  footerContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    // flush to bottom with margin at the bottom
+    marginBottom: 20,
   },
   loaderContainer: {
     flex: 1,

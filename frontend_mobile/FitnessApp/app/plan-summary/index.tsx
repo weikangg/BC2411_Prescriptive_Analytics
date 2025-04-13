@@ -13,37 +13,57 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 
 export default function PlanSummaryScreen() {
   const router = useRouter();
-  const { plan } = useLocalSearchParams();
+  const { result } = useLocalSearchParams<{ result: string }>();
 
-  // Parse the incoming plan parameter (which is a JSON string from the API).
-  const parsedData = plan ? JSON.parse(plan as string) : null;
-  const weeklyInfo = parsedData?.weekly_info || {
-    avg_free_time_used: 0,
-    avg_net_calories: 0,
-    avg_workout_duration: 0,
-    free_time_week: 0,
-    meals_per_day: 0,
-  };
-  const planArray = parsedData?.plan || [];
+  // Parse the incoming result parameter (which is a JSON string from the API)
+  const parsedData = result ? JSON.parse(result) : null;
 
-  // Use only the first 7 days if there are more than 7
+  // Get model status from backend; e.g., "OPTIMAL" or "INFEASIBLE"
+  const modelStatus = parsedData?.status || "UNKNOWN";
+
+  // Check if the plan data is available (for a modelStatus of OPTIMAL)
+  const hasPlan =
+    modelStatus === "OPTIMAL" &&
+    parsedData?.plan &&
+    parsedData.plan.length > 0;
+  // Check if recommendations exist (for a modelStatus of INFEASIBLE)
+  const hasRecommendations =
+    modelStatus === "INFEASIBLE" &&
+    parsedData?.recommendations &&
+    parsedData.recommendations.length > 0;
+
+  // If plan is optimal, get weekly information and plan array.
+  const weeklyInfo = hasPlan
+    ? parsedData.weekly_info
+    : {
+        avg_free_time_used: 0,
+        avg_net_calories: 0,
+        avg_workout_duration: 0,
+        free_time_week: 0,
+        meals_per_day: 0,
+      };
+  const planArray = hasPlan ? parsedData.plan : [];
+
+  // If more than 7 days, take only the first 7 days.
   const daysData = planArray.length > 7 ? planArray.slice(0, 7) : planArray;
 
-  // Stats array using weekly_info
-  const stats = [
-    {
-      label: `Time Used: ${weeklyInfo.avg_free_time_used}/${weeklyInfo.free_time_week} min`,
-    },
-    { label: `Workout/day: ${weeklyInfo.avg_workout_duration} min` },
-    { label: `Meals/day: ${weeklyInfo.meals_per_day}` },
-    {
-      label: `Calories/day: ${
-        weeklyInfo.avg_net_calories > 0
-          ? "+" + weeklyInfo.avg_net_calories
-          : weeklyInfo.avg_net_calories
-      } kcal`,
-    },
-  ];
+  // Build stats only if plan exists.
+  const stats = hasPlan
+    ? [
+        {
+          label: `Time Used: ${weeklyInfo.avg_free_time_used}/${weeklyInfo.free_time_week} min`,
+        },
+        { label: `Workout/day: ${weeklyInfo.avg_workout_duration} min` },
+        { label: `Meals/day: ${weeklyInfo.meals_per_day}` },
+        {
+          label: `Calories/day: ${
+            weeklyInfo.avg_net_calories > 0
+              ? "+" + weeklyInfo.avg_net_calories
+              : weeklyInfo.avg_net_calories
+          } kcal`,
+        },
+      ]
+    : [];
 
   // Navigation handlers.
   function handleEditPreferences() {
@@ -53,79 +73,126 @@ export default function PlanSummaryScreen() {
     router.push("/");
   }
   function handleDayPress(dayPlan: any) {
-    // Navigate to the per-day detail page, passing the day plan as a JSON string.
-    console.log(dayPlan);
     router.push({
       pathname: "/plan-summary/[day]",
       params: { day: JSON.stringify(dayPlan) },
     });
   }
 
-  return (
-    <View style={styles.container}>
-      {/* Header */}
-      <Text style={styles.pageHeader}>Plan Summary</Text>
-      <Text style={styles.pageSubheader}>
-        Your Personalized Weekly Plan For This Week
-      </Text>
+  // Helper function to render recommendations.
+  function renderRecommendations() {
+    const recommendations: string[] = parsedData?.recommendations || [];
+    if (recommendations.length === 0) return null;
 
-      {/* Stats Section */}
-      <View style={styles.statsContainer}>
-        {stats.map((stat, index) => (
-          <View key={index} style={styles.statRow}>
-            <Text style={styles.statText}>{stat.label}</Text>
-            <View style={styles.separatorLine} />
+    // Assume the first recommendation is the main one
+    // and contains semicolon-separated key-value items.
+    const mainRec = recommendations[0];
+    const keyValuePairs = mainRec.split(";").map((item: string) => item.trim());
+
+    return (
+      <View style={styles.recommendationsContainer}>
+        <Text style={styles.sectionHeader}>Recommendations</Text>
+        {keyValuePairs.map((pair, idx) => (
+          <View key={idx} style={styles.recommendationRow}>
+            <Text style={styles.recommendationText}>{pair}</Text>
+            {idx < keyValuePairs.length - 1 && (
+              <View style={styles.separatorLine} />
+            )}
           </View>
         ))}
+        {recommendations.length > 1 && (
+          <View style={styles.additionalRecContainer}>
+            {recommendations.slice(1).map((rec, idx) => (
+              <Text key={idx} style={styles.additionalRecommendation}>
+                {rec}
+              </Text>
+            ))}
+          </View>
+        )}
       </View>
+    );
+  }
 
-      {/* Detailed Weekly Plan Header */}
-      <Text style={styles.detailedHeader}>Detailed Weekly Plan</Text>
+  return (
+    <View style={styles.fullContainer}>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* Always show headers */}
+        <Text style={styles.pageHeader}>Plan Summary</Text>
+        <Text style={styles.pageSubheader}>
+          Your Personalized Weekly Plan For This Week
+        </Text>
 
-      {/* Horizontally Scrollable Days Table */}
-      <ScrollView horizontal style={styles.dayScroll}>
-        {daysData.map((dayItem: any, idx: number) => {
-          // Convert the day string to a Date and format as "Sat 12 / 04"
-          const dayDate = new Date(dayItem.day);
-          const dayStr =  dayDate.toLocaleDateString("en-US", {
-            weekday: "short",
-            day: "numeric",
-          });
-          const month = (dayDate.getMonth() + 1).toString().padStart(2, "0");
-          const formattedDay = `${dayStr} / ${month}`;
-          return (
-            <View key={idx} style={styles.dayBox}>
-              <Text style={styles.dayTitle}>{formattedDay}</Text>
-              <View style={styles.row}>
-                <Image
-                  source={require("../../assets/images/food.png")}
-                  style={styles.icon}
-                  resizeMode="contain"
-                />
-                <Text style={styles.daySubtitle}>Diet Meal Plan</Text>
-              </View>
-              <View style={styles.row}>
-                <Image
-                  source={require("../../assets/images/exercise.png")}
-                  style={styles.icon}
-                  resizeMode="contain"
-                />
-                <Text style={styles.daySubtitle}>Exercises</Text>
-              </View>
-              <TouchableOpacity
-                style={styles.viewPlanButton}
-                onPress={() => handleDayPress(dayItem)}
-              >
-                <Text style={styles.viewPlanButtonText}>
-                  Click to view plan
-                </Text>
-              </TouchableOpacity>
+        {/* Model Status with Separator */}
+        <View style={styles.modelStatusContainer}>
+          <Text style={styles.modelStatusText}>
+            Model Status: {modelStatus}
+          </Text>
+          <View style={styles.statusSeparator} />
+        </View>
+
+        {hasPlan ? (
+          <>
+            {/* Stats Section */}
+            <View style={styles.statsContainer}>
+              {stats.map((stat, index) => (
+                <View key={index} style={styles.statRow}>
+                  <Text style={styles.statText}>{stat.label}</Text>
+                  <View style={styles.separatorLine} />
+                </View>
+              ))}
             </View>
-          );
-        })}
+
+            {/* Detailed Weekly Plan Table */}
+            <Text style={styles.detailedHeader}>Detailed Weekly Plan</Text>
+            <ScrollView horizontal style={styles.dayScroll}>
+              {daysData.map((dayItem: any, idx: number) => {
+                const dayDate = new Date(dayItem.day);
+                const dayNumber = dayDate.getDate().toString().padStart(2, "0");
+                const month = (dayDate.getMonth() + 1).toString().padStart(2, "0");
+                const formattedDay = `${dayNumber} / ${month}`;
+                return (
+                  <View key={idx} style={styles.dayBox}>
+                    <Text style={styles.dayTitle}>{formattedDay}</Text>
+                    <View style={styles.row}>
+                      <Image
+                        source={require("../../assets/images/food.png")}
+                        style={styles.icon}
+                        resizeMode="contain"
+                      />
+                      <Text style={styles.daySubtitle}>Diet Meal Plan</Text>
+                    </View>
+                    <View style={styles.row}>
+                      <Image
+                        source={require("../../assets/images/exercise.png")}
+                        style={styles.icon}
+                        resizeMode="contain"
+                      />
+                      <Text style={styles.daySubtitle}>Exercises</Text>
+                    </View>
+                    <TouchableOpacity
+                      style={styles.viewPlanButton}
+                      onPress={() => handleDayPress(dayItem)}
+                    >
+                      <Text style={styles.viewPlanButtonText}>
+                        Click to view plan
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          </>
+        ) : hasRecommendations ? (
+          // If no plan data but recommendations exist, render recommendations.
+          renderRecommendations()
+        ) : (
+          <View style={styles.noPlanContainer}>
+            <Text style={styles.noPlanText}>No plan data available.</Text>
+          </View>
+        )}
       </ScrollView>
 
-      {/* Bottom Buttons – Stacked Vertically */}
+      {/* Bottom Buttons always at the bottom */}
       <View style={styles.bottomButtonsContainer}>
         <TouchableOpacity
           style={styles.fullWidthButton}
@@ -147,9 +214,11 @@ export default function PlanSummaryScreen() {
 const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-  container: {
+  fullContainer: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  container: {
     paddingHorizontal: 20,
     paddingTop: 30,
     paddingBottom: 20,
@@ -168,6 +237,21 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: "#000",
   },
+  modelStatusContainer: {
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  modelStatusText: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 16,
+    color: "#000",
+  },
+  statusSeparator: {
+    marginTop: 5,
+    borderBottomWidth: 1,
+    borderColor: "#000",
+    width: "100%",
+  },
   statsContainer: {
     marginBottom: 15,
   },
@@ -182,8 +266,8 @@ const styles = StyleSheet.create({
   },
   separatorLine: {
     borderBottomWidth: 1,
-    borderColor: "#000",
-    width: "100%",
+    borderColor: "#ccc",
+    width: "80%",
     alignSelf: "flex-start",
     marginTop: 5,
   },
@@ -199,7 +283,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     width: 160,
-    height: 220, // Increased height for more content.
+    height: 220,
     borderWidth: 1,
     borderColor: "#bbb",
     borderRadius: 8,
@@ -207,6 +291,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9f9f9",
     padding: 10,
     justifyContent: "space-between",
+  },
+  sectionHeader: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 18,
+    marginVertical: 10,
+    color: "#000",
   },
   dayTitle: {
     fontFamily: "Inter_700Bold",
@@ -244,8 +334,38 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
   },
+  recommendationsContainer: {
+    marginVertical: 20,
+  },
+  recommendationRow: {
+    marginBottom: 10,
+  },
+  recommendationText: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 16,
+    color: "#000",
+  },
+  additionalRecContainer: {
+    marginTop: 10,
+  },
+  additionalRecommendation: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    color: "#666",
+    marginTop: 5,
+  },
+  noPlanContainer: {
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  noPlanText: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 16,
+    color: "#666",
+  },
   bottomButtonsContainer: {
-    marginTop: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   fullWidthButton: {
     backgroundColor: "#9ECAE1",
