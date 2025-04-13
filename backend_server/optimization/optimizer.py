@@ -67,11 +67,11 @@ def diagnose_model(diets_df, ex_df, user_params, metrics) -> List[str]:
     max_daily_calories = max_calories * M
     if target_calorie_pd < min_daily_calories:
         recommendations.append(
-            f"Your planned calorie intake is too low for {M} meals per day. Consider reducing meals per day or extending your horizon."
+            f"Your targetted calorie intake per day ({target_calorie_pd}) is too low for {M} meals per day. Consider reducing meals per day or extending your horizon from {T} days."
         )
     elif target_calorie_pd > max_daily_calories:
         recommendations.append(
-            f"Your planned calorie intake is too high for {M} meals per day. Consider increasing the number of meals per day or extending your horizon."
+            f"Your targetted calorie intake per day ({target_calorie_pd})is too high for {M} meals per day. Consider increasing the number of meals per day or extending your horizon from {T} days."
         )
 
     # 3. Meal Prep Time Feasibility:
