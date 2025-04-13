@@ -3,9 +3,9 @@ from typing import List, Dict
 import logging
 from gurobipy import Model, GRB, quicksum
 
-from ..data.preprocessing import filter_diets, filter_exercises
-from ..utils.calculations import compute_user_metrics
-from ..models.output_schema import Meal, Exercise, DailyPlan, WeeklyInfo, OptimizationResult
+from data.preprocessing import filter_diets, filter_exercises
+from utils.calculations import compute_user_metrics
+from models.output_schema import Meal, Exercise, DailyPlan, WeeklyInfo, OptimizationResult
 
 logging.basicConfig(level=logging.INFO)
 

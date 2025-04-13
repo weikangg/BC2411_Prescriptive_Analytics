@@ -1,6 +1,8 @@
 import logging
 from fastapi import APIRouter, HTTPException
 from optimization.optimizer import solve_optimization
+from models.input_schema import UserData
+from models.output_schema import OptimizationResult
 
 router = APIRouter()
 logging.basicConfig(level=logging.INFO)
