@@ -1,7 +1,7 @@
 import os
 import pandas as pd
-from backend.data_import.kaggle_import import download_dataset, view_data
-from backend.data_cleaning.data_cleaning import load_data, clean_data, print_null_summary, save_processed_data
+from preprocessing.data_import.kaggle_import import download_dataset, view_data
+from preprocessing.data_cleaning.data_cleaning import load_data, clean_data, print_null_summary, save_processed_data
 from config import KAGGLE_DATASETS, PROCESSED_DATA_DIR, FINAL_DATA_DIR
 
 

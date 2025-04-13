@@ -46,6 +46,11 @@ def clean_keto_diet_data(df: pd.DataFrame) -> pd.DataFrame:
     
     # Create total_time column as sum of prep_time and cook_time, then drop them
     df["total_time_in_minutes"] = df["prep_time_in_minutes"].fillna(0) + df["cook_time_in_minutes"].fillna(0)
+
+    # Fix known data issue: Salmon dish with total_time = 0 → set prep time to 20
+    salmon_mask = (df["total_time_in_minutes"] == 0) & (df["recipe"].str.contains("salmon", case=False, na=False))
+    df.loc[salmon_mask, "total_time_in_minutes"] = 20
+
     df = df.drop(columns=["prep_time_in_minutes", "cook_time_in_minutes"], errors="ignore")
     
     # Introduce diet_type as "keto"
@@ -97,10 +102,10 @@ def clean_diets_recipes_and_nutrients_data(df: pd.DataFrame) -> pd.DataFrame:
     # Remove any non-ASCII characters from text columns
     df = df.apply(lambda x: x.str.encode('ascii', 'ignore').str.decode('ascii') if x.dtype == "object" else x)
     
-    # Simulate a realistic prep time (in minutes); e.g., random between 20 and 60 minutes.
+    # Simulate a realistic total_time (in minutes); e.g., random between 20 and 60 minutes.
     df["total_time_in_minutes"] = np.random.randint(20, 61, size=len(df))
     
-    # Standardize diet_type and cuisine_type if present (lowercase them)
+    # Standardize diet_type and cuisine_type if present (convert to lowercase)
     if "Diet_type" in df.columns:
         df.rename(columns={"Diet_type": "diet_type"}, inplace=True)
         df["diet_type"] = df["diet_type"].str.lower()
@@ -108,7 +113,22 @@ def clean_diets_recipes_and_nutrients_data(df: pd.DataFrame) -> pd.DataFrame:
         df.rename(columns={"Cuisine_type": "cuisine_type"}, inplace=True)
         df["cuisine_type"] = df["cuisine_type"].str.lower()
     
-    # For merging, define final column order.
+    # Scale rows with calculated calories > 800
+    def scale_row(row):
+        if row["calories"] > 800:
+            # Choose a random target calorie value between 600 and 800.
+            target = np.random.uniform(600, 800)
+            factor = row["calories"] / target  # scaling factor (>1)
+            row["protein"] = row["protein"] / factor
+            row["carbs"]   = row["carbs"] / factor
+            row["fat"]     = row["fat"] / factor
+            # Recalculate calories from scaled macronutrients.
+            row["calories"] = row["protein"] * 4 + row["carbs"] * 4 + row["fat"] * 9
+        return row
+    
+    df = df.apply(scale_row, axis=1)
+    
+    # Define final column order for merging.
     desired_cols = ["recipe", "diet_type", "cuisine_type", "total_time_in_minutes", "calories", "fat", "carbs", "protein"]
     for col in desired_cols:
         if col not in df.columns:

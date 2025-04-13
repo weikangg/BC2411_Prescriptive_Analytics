@@ -1,6 +1,7 @@
 # BC2411 Prescriptive Analytics - FitPlanner
 
 ## 🎥 Demo
+
 [Watch the demo here](https://github.com/user-attachments/assets/48efdece-557f-4ed8-b53c-6f0edfa438a6)
 
 ## 📦 Prerequisites
@@ -30,8 +31,10 @@ This project aims to create a prescriptive analytics tool using dietary and exer
 3. The diet and foods dataset is based on:
 
    - The [Keto Diet Recipes Dataset](https://www.kaggle.com/datasets/hamadkhan345/keto-diet-recipes-dataset?resource=download) from Kaggle
+     - For this dataset, one particular dish `Perfectly Marinated Grilled Salmon` has a known preparation time of 0 minutes through our EDA which is not realistic, as such it is cleaned to have a reasonable prep time of 20mins.
    - The [Diets, Recipes And Their Nutrients Dataset](https://www.kaggle.com/datasets/thedevastator/healthy-diet-recipes-a-comprehensive-dataset) from Kaggle
-   - Some columns such as `cuisine_type` and `total_time_in_minutes` are reasonably simulated to allow merging both datasets and to fulfill the LOP requirements
+     - For this dataset, the amount of calories calculated doesn't seem to be realistic for a single serving of a meal. The average calories of a meal calculated was 1895.552408 kcal, which is unrealistic as most meals are within the range of 300-800 calories. As such, for these meals, the data cleaning conducted was to pick a random number from 600-800kcal, and scale down the macronutrients respectively as well to get a realistic simulated dataset.
+   - Some columns such as `cuisine_type` and `total_time_in_minutes` are reasonably simulated to allow merging both datasets and to fulfill the LOP requirements.
 
 4. The exercise dataset is based on:
 
