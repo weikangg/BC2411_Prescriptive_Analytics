@@ -11,11 +11,11 @@ _ex_df    = pd.read_csv(DATA_DIR / "processed_final_exercises.csv")
 
 def filter_diets(user_params: dict) -> pd.DataFrame:
     df = _diets_df.copy()
-    # dietRestrictions -> diet_type
+    # dietRestrictions → diet_type
     dr = [d.lower() for d in user_params.get("dietRestrictions", [])]
     if "none" not in dr:
         df = df[df["diet_type"].str.lower().isin(dr)]
-    # varietyPreferences -> cuisine_type
+    # varietyPreferences → cuisine_type
     vp = [v.lower() for v in user_params.get("varietyPreferences", [])]
     if "none" not in vp:
         df = df[df["cuisine_type"].str.lower().isin(vp)]
@@ -24,24 +24,20 @@ def filter_diets(user_params: dict) -> pd.DataFrame:
 
 def filter_exercises(user_params: dict) -> pd.DataFrame:
     df = _ex_df.copy()
-    # fitnessLevel -> difficulty_level
+    # fitnessLevel → difficulty_level
     fl = user_params.get("fitnessLevel", "").lower()
     if fl and fl != "none":
         df = df[df["difficulty_level"].str.lower() == fl]
-
-
     # preferredLocation → workout_location
     pl = user_params.get("preferredLocation", "").lower()
     if pl and pl != "none":
         df = df[df["workout_location"].str.lower() == pl]
-
-    # preferredWorkoutType -> activity_type
+    # preferredWorkoutType → activity_type
     wt = user_params.get("preferredWorkoutType", "").lower()
     if wt and wt != "none":
         df = df[df["activity_type"].str.lower() == wt]
     logging.info("Filtered exercises (%d rows):\n%s", len(df), df.head().to_dict(orient="records"))
     return df
-
 
 # --- Main test harness ---
 

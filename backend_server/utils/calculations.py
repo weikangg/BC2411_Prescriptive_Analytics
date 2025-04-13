@@ -1,54 +1,48 @@
-from datetime import datetime, timezone
 import logging
-
+from math import ceil
+from datetime import datetime, timezone
 
 def compute_user_metrics(user: dict) -> dict:
-    """
-    Given user dict with keys:
-      weight (kg), height (cm), age (yrs), gender ("male"/"female"),
-      activityLevel (string), goalWeight (kg), goalTargetDate (ISO str)
-    returns a dict with BMR, TDEE, weight_change, calorie_change, target_cal_pd.
-    """
-    w = user["weight"]
-    h = user["height"]
-    a = user["age"]
+    CALORIES_PER_KG = 7700  # constant
+    w, h, a = user["weight"], user["height"], user["age"]
     s = 5 if user["gender"].lower() == "male" else -161
 
-    # 1. BMR
+    # 1. BMR:
     bmr = 10 * w + 6.25 * h - 5 * a + s
 
-    # 2. Activity multiplier map (you may refine these)
+    # 2. TDEE:
     activity_map = {
-        "Sedentary": 1.2,
-        "Lightly Active": 1.375,
-        "Moderately Active": 1.55,
-        "Very Active": 1.725,
-        "Extra Active": 1.9,
+        "sedentary": 1.2,
+        "lightly active": 1.375,
+        "moderately active": 1.55,
+        "very active": 1.725,
+        "extra active": 1.9,
     }
-    act = user["activityLevel"].lower()
+    act = user.get("activityLevel", "sedentary").lower()
+    logging.info(f'User activity level: {act}')
     multiplier = activity_map.get(act, 1.2)
     tdee = bmr * multiplier
 
-    # 3. Weight change & calorie delta
-    gw = user["goalWeight"]
-    wt_change = gw - w  # positive if gain
 
-    # T = number of days between today and goalTargetDate
+    # 3. Weight change & daily calorie delta:
+    gw = user["goalWeight"]
+    wt_change = gw - w
     today = datetime.now(timezone.utc)
     tgt = datetime.fromisoformat(user["goalTargetDate"].replace("Z", "+00:00"))
-    days = max((tgt - today).days, 1)
+    if tgt.tzinfo is None:
+        tgt = tgt.replace(tzinfo=timezone.utc)
+    delta = tgt - today
+    days = max(ceil(delta.total_seconds() / 86400), 1)
+    cal_delta = CALORIES_PER_KG * wt_change / days
 
-    cal_change = 7700 * wt_change / days
-
-    # 4. target calories per day
-    target_cal_pd = tdee + cal_change
+    target_cal_pd = tdee + cal_delta
 
     return {
         "BMR": round(bmr, 2),
         "TDEE": round(tdee, 2),
         "weight_change_kg": round(wt_change, 2),
         "days_to_target": days,
-        "calorie_change_per_day": round(cal_change, 2),
+        "calorie_change_per_day": round(cal_delta, 2),
         "target_calorie_per_day": round(target_cal_pd, 2),
     }
 
