@@ -91,13 +91,14 @@ export default function MealPreparationScreen() {
       console.log("Data sent to API:", updatedData);
       const data = await generatePlan(updatedData);
       console.log("Data received from API:", data);
-      const planString = JSON.stringify(data);
+      const result = JSON.stringify(data);
       router.push({
         pathname: "/plan-summary",
-        params: { plan: planString },
+        params: { result: result },
       });
     } catch (err) {
       console.error("API error:", err);
+      setIsLoading(false);
     } finally {
       setIsLoading(false);
     }
@@ -175,9 +176,7 @@ export default function MealPreparationScreen() {
         >
           <View style={styles.headerContainer}>
             <Text style={styles.title}>Meal Preparations</Text>
-            <Text style={styles.subtitle}>
-              What are your food preferences?
-            </Text>
+            <Text style={styles.subtitle}>What are your food preferences?</Text>
           </View>
 
           {/* Dietary Restrictions (Multi-select) */}

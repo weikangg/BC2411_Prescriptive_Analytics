@@ -23,9 +23,7 @@ export default function PlanSummaryScreen() {
 
   // Check if the plan data is available (for a modelStatus of OPTIMAL)
   const hasPlan =
-    modelStatus === "OPTIMAL" &&
-    parsedData?.plan &&
-    parsedData.plan.length > 0;
+    modelStatus === "OPTIMAL" && parsedData?.plan && parsedData.plan.length > 0;
   // Check if recommendations exist (for a modelStatus of INFEASIBLE)
   const hasRecommendations =
     modelStatus === "INFEASIBLE" &&
@@ -88,10 +86,16 @@ export default function PlanSummaryScreen() {
     // and contains semicolon-separated key-value items.
     const mainRec = recommendations[0];
     const keyValuePairs = mainRec.split(";").map((item: string) => item.trim());
-
+    // Process additional recommendations.
+    const additionalRecommendations = recommendations.slice(1).map((rec) => {
+      if (rec.trim() === "All input parameters appear feasible.") {
+        return "All input parameters appear feasible. However, we recommend extending the time period for better optimization.";
+      }
+      return rec;
+    });
     return (
       <View style={styles.recommendationsContainer}>
-        <Text style={styles.sectionHeader}>Recommendations</Text>
+        <Text style={styles.sectionHeader}>Calculated Inputs</Text>
         {keyValuePairs.map((pair, idx) => (
           <View key={idx} style={styles.recommendationRow}>
             <Text style={styles.recommendationText}>{pair}</Text>
@@ -100,15 +104,12 @@ export default function PlanSummaryScreen() {
             )}
           </View>
         ))}
-        {recommendations.length > 1 && (
-          <View style={styles.additionalRecContainer}>
-            {recommendations.slice(1).map((rec, idx) => (
-              <Text key={idx} style={styles.additionalRecommendation}>
-                {rec}
-              </Text>
-            ))}
-          </View>
-        )}
+        <Text style={styles.sectionHeader}>Recommendations</Text>
+        {additionalRecommendations.map((rec, idx) => (
+          <Text key={idx} style={styles.additionalRecommendation}>
+            {rec}
+          </Text>
+        ))}
       </View>
     );
   }
@@ -127,7 +128,6 @@ export default function PlanSummaryScreen() {
           <Text style={styles.modelStatusText}>
             Model Status: {modelStatus}
           </Text>
-          <View style={styles.statusSeparator} />
         </View>
 
         {hasPlan ? (
@@ -148,7 +148,9 @@ export default function PlanSummaryScreen() {
               {daysData.map((dayItem: any, idx: number) => {
                 const dayDate = new Date(dayItem.day);
                 const dayNumber = dayDate.getDate().toString().padStart(2, "0");
-                const month = (dayDate.getMonth() + 1).toString().padStart(2, "0");
+                const month = (dayDate.getMonth() + 1)
+                  .toString()
+                  .padStart(2, "0");
                 const formattedDay = `${dayNumber} / ${month}`;
                 return (
                   <View key={idx} style={styles.dayBox}>
@@ -238,18 +240,19 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   modelStatusContainer: {
-    alignItems: "center",
-    marginBottom: 15,
+    alignItems: "flex-start",
+    marginBottom: 10,
+    marginTop: 10,
   },
   modelStatusText: {
     fontFamily: "Inter_700Bold",
-    fontSize: 16,
+    fontSize: 18,
     color: "#000",
   },
   statusSeparator: {
     marginTop: 5,
     borderBottomWidth: 1,
-    borderColor: "#000",
+    borderColor: "#ccc",
     width: "100%",
   },
   statsContainer: {
@@ -267,7 +270,7 @@ const styles = StyleSheet.create({
   separatorLine: {
     borderBottomWidth: 1,
     borderColor: "#ccc",
-    width: "80%",
+    width: "100%",
     alignSelf: "flex-start",
     marginTop: 5,
   },
@@ -335,7 +338,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   recommendationsContainer: {
-    marginVertical: 20,
+    marginVertical: 0,
   },
   recommendationRow: {
     marginBottom: 10,
