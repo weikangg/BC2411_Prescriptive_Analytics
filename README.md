@@ -3,7 +3,7 @@
 ## 🎥 Demo
 <div align="center">
 
-  [Watch the demo here](https://github.com/user-attachments/assets/48efdece-557f-4ed8-b53c-6f0edfa438a6)
+  [Watch the demo here](https://github.com/user-attachments/assets/c705f030-2d0d-4a19-8290-c270c35c448b)
 
 </div>
 
