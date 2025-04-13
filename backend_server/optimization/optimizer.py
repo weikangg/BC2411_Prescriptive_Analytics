@@ -3,9 +3,9 @@ from typing import List, Dict
 import logging
 from gurobipy import Model, GRB, quicksum
 
-from backend_server.data.preprocessing import filter_diets, filter_exercises
-from backend_server.utils.calculations import compute_user_metrics
-from backend_server.models.output_schema import Meal, Exercise, DailyPlan, WeeklyInfo, OptimizationResult
+from ..data.preprocessing import filter_diets, filter_exercises
+from ..utils.calculations import compute_user_metrics
+from ..models.output_schema import Meal, Exercise, DailyPlan, WeeklyInfo, OptimizationResult
 
 logging.basicConfig(level=logging.INFO)
 
@@ -402,7 +402,7 @@ def solve_optimization(user_params: dict) -> dict:
 
 if __name__ == "__main__":
     # For testing purposes only:
-    from backend_server.models.input_schema import UserData
+    from ..models.input_schema import UserData
 
     sample_user = {
         "activityLevel": "Moderately Active",
