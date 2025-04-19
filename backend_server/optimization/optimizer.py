@@ -261,15 +261,15 @@ def generate_optimization_output(model: Model,
 def solve_optimization(user_params: dict) -> dict:
     """
     Runs the full optimization process given user parameters.
-    Filters the data, computes metrics, builds the model, optimizes,
-    and returns a dictionary conforming to the output schema, with status and recommendations.
+    It filters the data, computes metrics, builds and optimizes the model,
+    and returns the results as a dictionary conforming to the output schema.
     """
     # --- Preprocessing ---
     filtered_diets = filter_diets(user_params)
     filtered_exercises = filter_exercises(user_params)
     metrics = compute_user_metrics(user_params)
 
-    # Setup parameters.
+    # Setup parameters
     T = metrics["days_to_target"]
     target_calorie_pd = metrics["target_calorie_per_day"]
     goal = user_params["goalType"].replace("_", " ")
@@ -280,102 +280,136 @@ def solve_optimization(user_params: dict) -> dict:
     num_weeks = T // 7
     has_partial_week = T % 7 > 0
 
-    logging.info(f"num_days: {T}, num_weeks: {num_weeks}, has_partial_week: {has_partial_week}")
-    print(f"Goal: {goal}")
-    print(f"Free time per day: {FT_day} mins, Total meal prep time per day: {MPT_day} mins")
-    print(f"Meals per day: {M}, Workout days per week: {W}")
-
-    # --- Build Optimization Model ---
+    # --- Build Model ---
     model = Model("FitPlanner")
     model.Params.OutputFlag = 0
-    model.setParam('TimeLimit', 300)  # 5 minutes
+    model.setParam('TimeLimit', 300)
 
     days = range(T)
     meals_idx = list(filtered_diets.index)
     exercises_idx = list(filtered_exercises.index)
 
-    # Extract parameters from filtered dataframes.
-    recipe = {i: filtered_diets.loc[i, 'recipe'] for i in meals_idx}
-    cal = {i: filtered_diets.loc[i, 'calories'] for i in meals_idx}
-    fat = {i: filtered_diets.loc[i, 'fat'] for i in meals_idx}
-    carb = {i: filtered_diets.loc[i, 'carbs'] for i in meals_idx}
-    protein = {i: filtered_diets.loc[i, 'protein'] for i in meals_idx}
-    prep_time = {i: filtered_diets.loc[i, 'total_time_in_minutes'] for i in meals_idx}
-    ex_name = {j: filtered_exercises.loc[j, 'exercise_name'] for j in exercises_idx}
-    location = {j: filtered_exercises.loc[j, 'workout_location'] for j in exercises_idx}
-    burn_rate = {j: filtered_exercises.loc[j, 'calories_burned_per_min'] for j in exercises_idx}
+    # Extract parameters
+    recipe     = {i: filtered_diets.loc[i, 'recipe'] for i in meals_idx}
+    cal        = {i: filtered_diets.loc[i, 'calories'] for i in meals_idx}
+    fat        = {i: filtered_diets.loc[i, 'fat'] for i in meals_idx}
+    carb       = {i: filtered_diets.loc[i, 'carbs'] for i in meals_idx}
+    protein    = {i: filtered_diets.loc[i, 'protein'] for i in meals_idx}
+    prep_time  = {i: filtered_diets.loc[i, 'total_time_in_minutes'] for i in meals_idx}
+    ex_name    = {j: filtered_exercises.loc[j, 'exercise_name'] for j in exercises_idx}
+    location   = {j: filtered_exercises.loc[j, 'workout_location'] for j in exercises_idx}
+    burn_rate  = {j: filtered_exercises.loc[j, 'calories_burned_per_min'] for j in exercises_idx}
     workout_type = {j: filtered_exercises.loc[j, 'activity_type'] for j in exercises_idx}
 
-    max_time = {j: 60 if workout_type[j] in {"Sports"} else
-                30 if workout_type[j] in {"Outdoor/Water"} else 20 for j in exercises_idx}
+    max_time = {
+        j: 60  if workout_type[j]=="Sports"
+           else 30  if workout_type[j]=="Outdoor/Water"
+           else 20
+        for j in exercises_idx
+    }
 
-    # Decision variables.
-    x = model.addVars(meals_idx, days, vtype=GRB.BINARY, name="x")
-    y = model.addVars(exercises_idx, days, vtype=GRB.BINARY, name="y")
+    # Decision variables
+    x     = model.addVars(meals_idx, days,     vtype=GRB.BINARY,    name="x")
+    y     = model.addVars(exercises_idx, days, vtype=GRB.BINARY,    name="y")
     t_var = model.addVars(exercises_idx, days, vtype=GRB.CONTINUOUS, name="t")
-    s = model.addVars(days, vtype=GRB.BINARY, name="s")
-    Z = model.addVar(vtype=GRB.CONTINUOUS, name="Z")
+    s     = model.addVars(days,             vtype=GRB.BINARY,    name="s")
+    Z     = model.addVar(vtype=GRB.CONTINUOUS, name="Z")
 
+    # Objective
     model.setObjective(Z, GRB.MINIMIZE)
-    cal_intake = quicksum(x[i, d] * cal[i] for i in meals_idx for d in days)
-    cal_burned = quicksum(t_var[j, d] * burn_rate[j] for j in exercises_idx for d in days)
-    model.addConstr(Z >= cal_intake - cal_burned - T * target_calorie_pd)
-    model.addConstr(Z >= -(cal_intake - cal_burned - T * target_calorie_pd))
+    total_intake = quicksum(x[i,d]*cal[i]       for i in meals_idx for d in days)
+    total_burn   = quicksum(t_var[j,d]*burn_rate[j] for j in exercises_idx for d in days)
+    model.addConstr(Z >= total_intake - total_burn - T * target_calorie_pd)
+    model.addConstr(Z >= -(total_intake - total_burn - T * target_calorie_pd))
 
+    # Per‐day constraints
     for d in days:
-        intake_d = quicksum(x[i, d] * cal[i] for i in meals_idx)
-        burn_d = quicksum(t_var[j, d] * burn_rate[j] for j in exercises_idx)
-        prep_d = quicksum(x[i, d] * prep_time[i] for i in meals_idx)
-        exercise_d = quicksum(t_var[j, d] for j in exercises_idx)
+        intake_d   = quicksum(x[i, d]*cal[i]        for i in meals_idx)
+        burn_d     = quicksum(t_var[j, d]*burn_rate[j] for j in exercises_idx)
+        prep_d     = quicksum(x[i, d]*prep_time[i]  for i in meals_idx)
+        exercise_d = quicksum(t_var[j, d]           for j in exercises_idx)
+
+        # Calorie balance
         if goal == "weight loss":
             model.addConstr(intake_d - burn_d <= target_calorie_pd)
         elif goal == "weight gain":
             model.addConstr(intake_d - burn_d >= target_calorie_pd)
-        elif goal == "endurance":
+        else:  # endurance
             model.addConstr(intake_d - burn_d <= target_calorie_pd + 50)
             model.addConstr(intake_d - burn_d >= target_calorie_pd - 50)
+
+        # Time
         model.addConstr(prep_d <= MPT_day)
         model.addConstr(prep_d + exercise_d <= FT_day)
+
+        # Meals count
         model.addConstr(quicksum(x[i, d] for i in meals_idx) == M)
-        model.addConstr(s[d] <= quicksum(y[j, d] for j in exercises_idx))
-        model.addConstr(s[d] * 0.1 <= quicksum(y[j, d] for j in exercises_idx))
+
+        # --- LINK s[d] WITH y[j,d] ---
+        # 1) if s[d]=1 then at least one y[j,d]=1:
+        model.addConstr(
+            quicksum(y[j, d] for j in exercises_idx) >= s[d],
+            name=f"flag_lower_{d}"
+        )  # <<< CHANGED >>>
+
+        # 2) if s[d]=0 then y[j,d]=0 for all j:
+        for j in exercises_idx:
+            model.addConstr(
+                y[j, d] <= s[d],
+                name=f"flag_upper_{j}_{d}"
+            )  # <<< CHANGED >>>
+
+        # Max durations
         for j in exercises_idx:
             model.addConstr(t_var[j, d] <= y[j, d] * max_time[j])
-        for i in meals_idx:
-            if d < T - 1:
-                model.addConstr(x[i, d] + x[i, d + 1] <= 1)
-        for j in exercises_idx:
-            if d < T - 1:
-                model.addConstr(y[j, d] + y[j, d + 1] <= 1)
-        fat_cal = quicksum(x[i, d] * fat[i] * 9 for i in meals_idx)
-        carb_cal = quicksum(x[i, d] * carb[i] * 4 for i in meals_idx)
-        protein_cal = quicksum(x[i, d] * protein[i] * 4 for i in meals_idx)
+
+        # No repeats
+        if d < T - 1:
+            for i in meals_idx:
+                model.addConstr(x[i, d] + x[i, d+1] <= 1)
+            for j in exercises_idx:
+                model.addConstr(y[j, d] + y[j, d+1] <= 1)
+
+        # Macronutrients
+        fat_cal     = quicksum(x[i, d]*fat[i]*9      for i in meals_idx)
+        carb_cal    = quicksum(x[i, d]*carb[i]*4     for i in meals_idx)
+        protein_cal = quicksum(x[i, d]*protein[i]*4  for i in meals_idx)
+
         if goal in {"weight loss", "endurance"}:
-            model.addConstr(fat_cal >= 0.2 * target_calorie_pd)
-            model.addConstr(fat_cal <= 0.35 * target_calorie_pd)
-            model.addConstr(carb_cal >= 0.45 * target_calorie_pd)
-            model.addConstr(carb_cal <= 0.65 * target_calorie_pd)
-            model.addConstr(protein_cal >= 0.1 * target_calorie_pd)
+            model.addConstr(fat_cal     >= 0.20 * target_calorie_pd)
+            model.addConstr(fat_cal     <= 0.35 * target_calorie_pd)
+            model.addConstr(carb_cal    >= 0.45 * target_calorie_pd)
+            model.addConstr(carb_cal    <= 0.65 * target_calorie_pd)
+            model.addConstr(protein_cal >= 0.10 * target_calorie_pd)
             model.addConstr(protein_cal <= 0.35 * target_calorie_pd)
-        elif goal == "weight gain":
-            model.addConstr(fat_cal >= 0.15 * target_calorie_pd)
-            model.addConstr(fat_cal <= 0.3 * target_calorie_pd)
-            model.addConstr(carb_cal >= 0.45 * target_calorie_pd)
-            model.addConstr(carb_cal <= 0.6 * target_calorie_pd)
-            model.addConstr(protein_cal >= 0.3 * target_calorie_pd)
+        else:  # weight gain
+            model.addConstr(fat_cal     >= 0.15 * target_calorie_pd)
+            model.addConstr(fat_cal     <= 0.30 * target_calorie_pd)
+            model.addConstr(carb_cal    >= 0.45 * target_calorie_pd)
+            model.addConstr(carb_cal    <= 0.60 * target_calorie_pd)
+            model.addConstr(protein_cal >= 0.30 * target_calorie_pd)
             model.addConstr(protein_cal <= 0.35 * target_calorie_pd)
 
+    # Weekly workout frequency
     for w in range(num_weeks):
         week_days = range(w * 7, (w + 1) * 7)
-        model.addConstr(quicksum(s[d] for d in week_days) == W)
-    if has_partial_week:
-        last_week_days = range(num_weeks * 7, T)
-        model.addConstr(quicksum(s[d] for d in last_week_days) <= W)
+        model.addConstr(
+            quicksum(s[d] for d in week_days) == W
+        )
 
-    logging.info("=== Running optimization ===")
+    # Partial final week → equality with min(|D_last|, W)
+    if has_partial_week:
+        last_week_days = list(range(num_weeks * 7, T))  # <<< CHANGED >>>
+        req = min(len(last_week_days), W)                # <<< CHANGED >>>
+        model.addConstr(
+            quicksum(s[d] for d in last_week_days) == req,
+            name="partial_week"                          # <<< CHANGED >>>
+        )
+
+    # Solve
     model.optimize()
 
-    logging.info("=== Optimization Running Complete ===")
+    # Build output
     output = generate_optimization_output(
         model=model,
         days=days,
