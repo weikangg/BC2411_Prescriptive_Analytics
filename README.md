@@ -14,7 +14,7 @@
 - **Gurobi Academic License**: [Request for one here](https://portal.gurobi.com/iam/licenses/request)
 - **Virtual Environment:** Create and activate a virtual environment
 - **Expo App:** Install from the [Google Play Store](https://play.google.com/store) or [Apple App Store](https://www.apple.com/app-store/)
-- **SerpAPI:** Generate an API Key [here](https://serpapi.com/manage-api-key)
+- **SerpAPI:** Generate an API Key [here](https://serpapi.com/manage-api-key), create a .env file in `frontend_mobile/FitnessApp` directory just like the .env.sample file and paste the API Key there.
 
 ---
 
