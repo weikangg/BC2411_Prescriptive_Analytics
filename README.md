@@ -119,3 +119,6 @@ aws ecs create-service --cluster fitness_planner --service-name fitness_planner_
 ```
 
 - Backend deployed on : http://54.179.224.214:8000/docs
+
+## CI/CD Automate Deployment
+- To automate deployment to AWS, a Github Actions workflow YAML file was created in `.github/workflows` directory as well whenever a push is detected on the main branch of this repository.
